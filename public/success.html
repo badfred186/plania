@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paiement confirmé — PlanIA</title>
+<meta http-equiv="refresh" content="0;url=/?session_id=SUCCESS">
+</head>
+<body>
+<script>
+  // Redirige vers index.html avec le paramètre session_id
+  const params = new URLSearchParams(window.location.search);
+  const sessionId = params.get('session_id') || 'SUCCESS';
+  window.location.href = '/?session_id=' + sessionId;
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "plania",
+  "version": "1.0.0",
+  "description": "Générateur de Business Plan IA - Site web complet",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Build OK'"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.24.0",
+    "resend": "^3.2.0",
+    "stripe": "^14.21.0"
+  }
+}
