@@ -14,6 +14,32 @@ async function getRawBody(req) {
   });
 }
 
+async function convertHTMLtoPDF(htmlContent) {
+  try {
+    const response = await fetch('https://api.html2pdf.app/v1/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        html: htmlContent,
+        apiKey: 'demo',
+        media: 'print',
+        landscape: false,
+        format: 'A4',
+        marginTop: '10mm',
+        marginBottom: '10mm',
+        marginLeft: '10mm',
+        marginRight: '10mm',
+      }),
+    });
+    if (!response.ok) throw new Error('PDF conversion failed');
+    const pdfBuffer = await response.arrayBuffer();
+    return Buffer.from(pdfBuffer);
+  } catch (err) {
+    console.error('PDF conversion error:', err);
+    return null;
+  }
+}
+
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
@@ -23,11 +49,7 @@ module.exports = async function handler(req, res) {
 
   let event;
   try {
-    event = stripe.webhooks.constructEvent(
-      rawBody,
-      sig,
-      process.env.STRIPE_WEBHOOK_SECRET
-    );
+    event = stripe.webhooks.constructEvent(rawBody, sig, process.env.STRIPE_WEBHOOK_SECRET);
   } catch (err) {
     console.error('Webhook signature error:', err.message);
     return res.status(400).json({ error: `Webhook Error: ${err.message}` });
@@ -59,8 +81,8 @@ module.exports = async function handler(req, res) {
     console.log(`Paiement confirme pour: ${clientEmail} - Projet: ${formData.nomProjet}`);
 
     const fin = calcFinancials(formData);
-
     const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+
     const destLabels = {
       banque: 'Banque / Organisme de credit',
       investisseur: 'Investisseur / Levee de fonds',
@@ -146,6 +168,17 @@ Redige UNIQUEMENT les 6 sections suivantes :
     };
 
     const bpHTML = generateBusinessPlanHTML(formData, fin, aiSections);
+
+    console.log('Conversion PDF en cours...');
+    const pdfBuffer = await convertHTMLtoPDF(bpHTML);
+    const isPDF = pdfBuffer && pdfBuffer.length > 1000;
+    console.log('Format final: ' + (isPDF ? 'PDF' : 'HTML'));
+
+    const nomFichier = (formData.nomProjet || 'MonProjet').replace(/\s+/g, '_');
+    const attachments = isPDF
+      ? [{ filename: `BusinessPlan_${nomFichier}.pdf`, content: pdfBuffer.toString('base64') }]
+      : [{ filename: `BusinessPlan_${nomFichier}.html`, content: Buffer.from(bpHTML).toString('base64') }];
+
     const resend = new Resend(process.env.RESEND_API_KEY);
     const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
 
@@ -155,32 +188,41 @@ Redige UNIQUEMENT les 6 sections suivantes :
       subject: `Votre business plan est pret - ${formData.nomProjet}`,
       html: `
         <div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;color:#1a1a1a;">
-          <div style="background:#0E0F11;padding:32px;text-align:center;">
+          <div style="background:#1A4A2E;padding:32px;text-align:center;">
             <h1 style="color:#fff;font-size:24px;margin:0;">Votre business plan est pret</h1>
-            <p style="color:rgba(255,255,255,.6);margin:8px 0 0;font-size:14px;">${formData.nomProjet}</p>
+            <p style="color:rgba(255,255,255,.7);margin:8px 0 0;font-size:14px;">${formData.nomProjet}</p>
           </div>
           <div style="padding:32px;">
             <p style="font-size:16px;">Bonjour ${formData.prenom},</p>
             <p style="margin:16px 0;color:#555;line-height:1.7;">
-              Votre business plan pour <strong>${formData.nomProjet}</strong> est en piece jointe.
+              Votre business plan pour <strong>${formData.nomProjet}</strong>
+              est en piece jointe au format <strong>${isPDF ? 'PDF' : 'HTML'}</strong>.
             </p>
-            <p style="color:#555;line-height:1.7;font-size:14px;">
-              Ouvrez le fichier HTML dans votre navigateur, puis faites
-              <strong>Fichier -> Imprimer -> Enregistrer en PDF</strong>.
-            </p>
+            <div style="background:#EBF4EE;border:1px solid #C8E6C9;border-radius:8px;padding:20px;margin:20px 0;">
+              <p style="font-size:13px;font-weight:600;color:#1A4A2E;margin:0 0 10px;">Votre dossier contient :</p>
+              ${['Resume executif','Presentation du porteur','Etude de marche',
+                'Plan investissement et financement','Previsionnel financier 3 ans',
+                'Strategie commerciale','Analyse des risques']
+                .map(s => `<p style="margin:4px 0;font-size:13px;color:#333;">✓ ${s}</p>`).join('')}
+            </div>
+            ${!isPDF ? `
+            <div style="background:#FFF8E1;border:1px solid #FFE082;border-radius:8px;padding:16px;margin:16px 0;">
+              <p style="margin:0;font-size:13px;color:#795548;">
+                <strong>Convertir en PDF :</strong> Ouvrez le fichier HTML
+                puis appuyez sur <strong>Ctrl+P</strong> (Cmd+P sur Mac)
+                et selectionnez <strong>Enregistrer en PDF</strong>.
+              </p>
+            </div>` : ''}
             <p style="margin-top:24px;color:#555;font-size:14px;">
-              L'equipe PlanIA
+              L equipe PlanIA
             </p>
           </div>
         </div>
       `,
-      attachments: [{
-        filename: `BusinessPlan_${(formData.nomProjet || 'MonProjet').replace(/\s+/g, '_')}.html`,
-        content: Buffer.from(bpHTML).toString('base64'),
-      }],
+      attachments,
     });
 
-    console.log(`Email envoye a ${clientEmail}`);
+    console.log(`Email envoye a ${clientEmail} format ${isPDF ? 'PDF' : 'HTML'}`);
 
     if (process.env.ADMIN_EMAIL) {
       await resend.emails.send({
@@ -188,18 +230,19 @@ Redige UNIQUEMENT les 6 sections suivantes :
         to: process.env.ADMIN_EMAIL,
         subject: `Nouvelle vente - ${formData.nomProjet} - 100 EUR`,
         html: `
-          <div style="font-family:Arial,sans-serif;max-width:480px;color:#1a1a1a;">
-            <h2 style="color:#166534;">Nouvelle vente confirmee !</h2>
+          <div style="font-family:Arial,sans-serif;max-width:480px;">
+            <h2 style="color:#1A4A2E;">Nouvelle vente !</h2>
             <p>Projet : <strong>${formData.nomProjet}</strong></p>
             <p>Client : ${formData.prenom} ${formData.nom}</p>
             <p>Email : ${clientEmail}</p>
-            <p>Montant : <strong>100,00 EUR</strong></p>
+            <p>Montant : <strong>100 EUR</strong></p>
+            <p>Format : <strong>${isPDF ? 'PDF' : 'HTML'}</strong></p>
           </div>
         `,
       });
     }
 
-    return res.status(200).json({ success: true });
+    return res.status(200).json({ success: true, format: isPDF ? 'pdf' : 'html' });
 
   } catch (err) {
     console.error('Erreur webhook:', err);
