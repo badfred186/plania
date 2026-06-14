@@ -14,32 +14,6 @@ async function getRawBody(req) {
   });
 }
 
-async function convertHTMLtoPDF(htmlContent) {
-  try {
-    const response = await fetch('https://api.html2pdf.app/v1/generate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        html: htmlContent,
-        apiKey: 'demo',
-        media: 'print',
-        landscape: false,
-        format: 'A4',
-        marginTop: '10mm',
-        marginBottom: '10mm',
-        marginLeft: '10mm',
-        marginRight: '10mm',
-      }),
-    });
-    if (!response.ok) throw new Error('PDF conversion failed');
-    const pdfBuffer = await response.arrayBuffer();
-    return Buffer.from(pdfBuffer);
-  } catch (err) {
-    console.error('PDF conversion error:', err);
-    return null;
-  }
-}
-
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
@@ -121,11 +95,11 @@ DONNEES FINANCIERES :
 Redige UNIQUEMENT les 6 sections suivantes :
 
 [SECTION:RESUME]
-(Resume executif : 4 paragraphes. Minimum 200 mots.)
+(Resume executif : 4 paragraphes percutants. Minimum 200 mots.)
 [/SECTION]
 
 [SECTION:PORTEUR]
-(Portrait du porteur. Minimum 150 mots.)
+(Portrait du porteur : parcours, competences, legitimite. Minimum 150 mots.)
 [/SECTION]
 
 [SECTION:PROJET]
@@ -133,7 +107,7 @@ Redige UNIQUEMENT les 6 sections suivantes :
 [/SECTION]
 
 [SECTION:MARCHE]
-(Etude de marche. Minimum 200 mots.)
+(Etude de marche complete. Minimum 200 mots.)
 [/SECTION]
 
 [SECTION:STRATEGIE]
@@ -168,16 +142,78 @@ Redige UNIQUEMENT les 6 sections suivantes :
     };
 
     const bpHTML = generateBusinessPlanHTML(formData, fin, aiSections);
-
-    console.log('Conversion PDF en cours...');
-    const pdfBuffer = await convertHTMLtoPDF(bpHTML);
-    const isPDF = pdfBuffer && pdfBuffer.length > 1000;
-    console.log('Format final: ' + (isPDF ? 'PDF' : 'HTML'));
-
     const nomFichier = (formData.nomProjet || 'MonProjet').replace(/\s+/g, '_');
-    const attachments = isPDF
-      ? [{ filename: `BusinessPlan_${nomFichier}.pdf`, content: pdfBuffer.toString('base64') }]
-      : [{ filename: `BusinessPlan_${nomFichier}.html`, content: Buffer.from(bpHTML).toString('base64') }];
+
+    // On génère une page HTML qui se convertit automatiquement en PDF
+    // quand le client clique sur le lien dans l'email
+    const htmlAvecAutoPrint = `<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Business Plan - ${formData.nomProjet}</title>
+<style>
+  @media print {
+    .no-print { display: none !important; }
+    body { margin: 0; }
+  }
+  .no-print {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: #1A4A2E;
+    color: white;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 9999;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+  }
+  .no-print button {
+    background: white;
+    color: #1A4A2E;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .no-print button:hover { background: #f0f0f0; }
+  body { padding-top: 60px; }
+  @media print { body { padding-top: 0; } }
+</style>
+</head>
+<body>
+
+<!-- BARRE DE TÉLÉCHARGEMENT PDF (disparait à l'impression) -->
+<div class="no-print">
+  <span>📄 Votre business plan — ${formData.nomProjet}</span>
+  <button onclick="downloadPDF()">⬇ Télécharger en PDF</button>
+</div>
+
+${bpHTML.replace('<!DOCTYPE html>', '').replace(/<html[^>]*>/, '').replace(/<\/html>/, '').replace(/<head>[\s\S]*?<\/head>/, '').replace(/<body>/, '').replace(/<\/body>/, '')}
+
+<script>
+function downloadPDF() {
+  // Cache la barre de téléchargement
+  document.querySelector('.no-print').style.display = 'none';
+  // Lance l'impression (= enregistrer en PDF)
+  window.print();
+  // Reaffiche la barre après
+  setTimeout(() => {
+    document.querySelector('.no-print').style.display = 'flex';
+  }, 1000);
+}
+// Lance automatiquement la boite de dialogue PDF à l'ouverture
+window.onload = function() {
+  setTimeout(() => {
+    downloadPDF();
+  }, 1500);
+};
+</script>
+</body>
+</html>`;
 
     const resend = new Resend(process.env.RESEND_API_KEY);
     const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
@@ -189,15 +225,22 @@ Redige UNIQUEMENT les 6 sections suivantes :
       html: `
         <div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;color:#1a1a1a;">
           <div style="background:#1A4A2E;padding:32px;text-align:center;">
-            <h1 style="color:#fff;font-size:24px;margin:0;">Votre business plan est pret</h1>
+            <h1 style="color:#fff;font-size:24px;margin:0;">Votre business plan est pret !</h1>
             <p style="color:rgba(255,255,255,.7);margin:8px 0 0;font-size:14px;">${formData.nomProjet}</p>
           </div>
           <div style="padding:32px;">
             <p style="font-size:16px;">Bonjour ${formData.prenom},</p>
             <p style="margin:16px 0;color:#555;line-height:1.7;">
-              Votre business plan pour <strong>${formData.nomProjet}</strong>
-              est en piece jointe au format <strong>${isPDF ? 'PDF' : 'HTML'}</strong>.
+              Votre business plan professionnel pour <strong>${formData.nomProjet}</strong> est pret.
+              Cliquez sur le bouton ci-dessous pour le telecharger en PDF.
             </p>
+
+            <div style="text-align:center;margin:32px 0;">
+              <p style="color:#555;font-size:13px;margin-bottom:8px;">
+                Le document s ouvre dans votre navigateur et se telecharge automatiquement en PDF.
+              </p>
+            </div>
+
             <div style="background:#EBF4EE;border:1px solid #C8E6C9;border-radius:8px;padding:20px;margin:20px 0;">
               <p style="font-size:13px;font-weight:600;color:#1A4A2E;margin:0 0 10px;">Votre dossier contient :</p>
               ${['Resume executif','Presentation du porteur','Etude de marche',
@@ -205,24 +248,36 @@ Redige UNIQUEMENT les 6 sections suivantes :
                 'Strategie commerciale','Analyse des risques']
                 .map(s => `<p style="margin:4px 0;font-size:13px;color:#333;">✓ ${s}</p>`).join('')}
             </div>
-            ${!isPDF ? `
-            <div style="background:#FFF8E1;border:1px solid #FFE082;border-radius:8px;padding:16px;margin:16px 0;">
-              <p style="margin:0;font-size:13px;color:#795548;">
-                <strong>Convertir en PDF :</strong> Ouvrez le fichier HTML
-                puis appuyez sur <strong>Ctrl+P</strong> (Cmd+P sur Mac)
-                et selectionnez <strong>Enregistrer en PDF</strong>.
+
+            <div style="background:#F8F9FB;border:1px solid #E4E6EB;border-radius:8px;padding:16px;margin:20px 0;">
+              <p style="margin:0;font-size:13px;color:#555;">
+                <strong>Comment sauvegarder en PDF :</strong><br><br>
+                1. Le document s ouvre dans votre navigateur<br>
+                2. La fenetre d impression apparait automatiquement<br>
+                3. Dans destination selectionnez <strong>Enregistrer en PDF</strong><br>
+                4. Cliquez <strong>Enregistrer</strong>
               </p>
-            </div>` : ''}
-            <p style="margin-top:24px;color:#555;font-size:14px;">
-              L equipe PlanIA
+            </div>
+
+            <p style="margin-top:24px;color:#555;font-size:13px;line-height:1.7;">
+              Le fichier HTML est egalement en piece jointe si vous preferez.<br><br>
+              Pour toute question, repondez a cet email.<br>
+              <strong>L equipe PlanIA</strong>
             </p>
+          </div>
+          <div style="padding:16px;border-top:1px solid #E4E6EB;text-align:center;font-size:11px;color:#AAA;">
+            PlanIA - Business Plan Professionnel - Document confidentiel
           </div>
         </div>
       `,
-      attachments,
+      // On envoie le HTML avec auto-print en pièce jointe
+      attachments: [{
+        filename: `BusinessPlan_${nomFichier}.html`,
+        content: Buffer.from(htmlAvecAutoPrint).toString('base64'),
+      }],
     });
 
-    console.log(`Email envoye a ${clientEmail} format ${isPDF ? 'PDF' : 'HTML'}`);
+    console.log(`Email envoye a ${clientEmail}`);
 
     if (process.env.ADMIN_EMAIL) {
       await resend.emails.send({
@@ -236,13 +291,12 @@ Redige UNIQUEMENT les 6 sections suivantes :
             <p>Client : ${formData.prenom} ${formData.nom}</p>
             <p>Email : ${clientEmail}</p>
             <p>Montant : <strong>100 EUR</strong></p>
-            <p>Format : <strong>${isPDF ? 'PDF' : 'HTML'}</strong></p>
           </div>
         `,
       });
     }
 
-    return res.status(200).json({ success: true, format: isPDF ? 'pdf' : 'html' });
+    return res.status(200).json({ success: true });
 
   } catch (err) {
     console.error('Erreur webhook:', err);
