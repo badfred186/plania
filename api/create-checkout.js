@@ -1,10 +1,7 @@
 // api/create-checkout.js
-// Crée une session de paiement Stripe et stocke les données du formulaire
-
 const Stripe = require('stripe');
 
 module.exports = async function handler(req, res) {
-  // CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -19,14 +16,22 @@ module.exports = async function handler(req, res) {
       return res.status(400).json({ error: 'Données manquantes' });
     }
 
-    // Encode les données dans les metadata Stripe (limite 500 chars par valeur)
-    // On découpe en chunks si nécessaire
+    const isPremium = formData.offre === 'premium';
+    const prix = isPremium ? 20000 : 10000; // centimes
+    const nomProduit = isPremium
+      ? 'Pack Premium — Excel + 2 PDF Professionnels'
+      : 'Business Plan Professionnel — PDF Complet';
+    const descProduit = isPremium
+      ? `Fichier Excel financier + PDF Présentation + PDF Étude de marché — ${formData.nomProjet}`
+      : `Business plan complet 8 sections — ${formData.nomProjet}`;
+
+    // Découpage des données en chunks (limite 500 chars/metadata Stripe)
     const dataStr = JSON.stringify(formData);
-    const chunk1 = dataStr.substring(0, 490);
-    const chunk2 = dataStr.substring(490, 980);
-    const chunk3 = dataStr.substring(980, 1470);
-    const chunk4 = dataStr.substring(1470, 1960);
-    const chunk5 = dataStr.substring(1960);
+    const chunkSize = 490;
+    const chunks = {};
+    for (let i = 0; i < 5; i++) {
+      chunks[`data${i+1}`] = dataStr.substring(i * chunkSize, (i+1) * chunkSize);
+    }
 
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
@@ -36,29 +41,25 @@ module.exports = async function handler(req, res) {
       line_items: [{
         price_data: {
           currency: 'eur',
-          unit_amount: 10000, // 100€ en centimes
+          unit_amount: prix,
           product_data: {
-            name: 'Business Plan Professionnel IA',
-            description: `Business plan complet pour : ${formData.nomProjet} — Livraison immédiate par email`,
-            images: [],
+            name: nomProduit,
+            description: descProduit,
           },
         },
         quantity: 1,
       }],
       customer_email: formData.email,
       metadata: {
-        data1: chunk1,
-        data2: chunk2,
-        data3: chunk3,
-        data4: chunk4,
-        data5: chunk5,
+        ...chunks,
         email: formData.email,
-        nomProjet: formData.nomProjet.substring(0, 100),
+        nomProjet: (formData.nomProjet || '').substring(0, 100),
         prenom: (formData.prenom || '').substring(0, 50),
         nom: (formData.nom || '').substring(0, 50),
+        offre: formData.offre || 'simple',
       },
-      success_url: `${siteUrl}/success.html?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${siteUrl}/cancel.html`,
+      success_url: `${siteUrl}/?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${siteUrl}/`,
       locale: 'fr',
     });
 
