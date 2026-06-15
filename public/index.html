@@ -3,739 +3,799 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PlanIA — Votre business plan professionnel en 5 minutes</title>
-<meta name="description" content="Générez un business plan professionnel complet grâce à l'IA. Étude de marché, prévisionnel financier 3 ans, analyse des risques. Livré par email en moins de 5 minutes.">
+<title>PlanIA — Business Plan Professionnel</title>
+<meta name="description" content="Obtenez un business plan professionnel complet en 5 minutes. Simple 100€ ou Pack Premium 200€ avec étude de marché et Excel financier.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap');
-:root {
-  --ink:#0E0F11; --ink2:#3A3D45; --ink3:#7A7F8E; --rule:#E4E6EB;
-  --surf:#F8F9FB; --white:#fff; --gold:#C9A84C; --goldd:#F5EDD6;
-  --goldr:#E8D5A3; --green:#166534; --r:8px;
-  --font-d:'Instrument Serif',Georgia,serif;
-  --font-b:'Inter',system-ui,sans-serif;
+:root{
+  --ink:#0E0F11;--ink2:#3A3D45;--ink3:#888;
+  --rule:#E8E8E4;--surf:#FAFAF8;--white:#fff;
+  --green:#1A4A2E;--greenl:#EBF4EE;--greenm:#2D6B42;
+  --gold:#C8A96E;--goldl:#F7F0E4;--goldr:#E8D5A3;
+  --navy:#1A1A2E;--navyl:#EEEEF8;
+  --r:8px;
+  --fd:'Playfair Display',Georgia,serif;
+  --fb:'Inter',system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:var(--font-b);color:var(--ink);background:var(--white);font-size:15px;line-height:1.6}
+body{font-family:var(--fb);background:var(--surf);color:var(--ink);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
 
-/* ── HEADER ── */
-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:60px}
-.logo{display:flex;align-items:center;gap:10px;font-family:var(--font-d);font-size:20px;color:var(--ink);text-decoration:none;cursor:pointer}
-.logo-mark{width:32px;height:32px;background:var(--ink);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
-.nav-cta{background:var(--ink);color:var(--white);border:none;padding:9px 20px;border-radius:var(--r);font-family:var(--font-b);font-size:14px;font-weight:500;cursor:pointer;transition:background .15s}
-.nav-cta:hover{background:#2a2d35}
+/* HEADER */
+header{position:sticky;top:0;z-index:100;background:rgba(250,250,248,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem}
+.logo{font-family:var(--fd);font-size:20px;color:var(--ink);cursor:pointer;display:flex;align-items:center;gap:8px}
+.logo-dot{width:8px;height:8px;background:var(--green);border-radius:50%}
 
-/* ── SCREENS ── */
+/* SCREENS */
 .screen{display:none}
 .screen.active{display:block}
-#screen-home{display:block}
 
-/* ── HERO ── */
-.hero{padding:6rem 1.5rem 5rem;text-align:center;display:flex;flex-direction:column;align-items:center}
-.hero-eyebrow{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem;display:flex;align-items:center;gap:10px}
-.hero-eyebrow::before,.hero-eyebrow::after{content:'';display:block;width:32px;height:1px;background:var(--goldr)}
-h1{font-family:var(--font-d);font-size:clamp(36px,6vw,68px);line-height:1.08;font-weight:400;color:var(--ink);max-width:750px;margin-bottom:1.25rem}
-h1 em{font-style:italic;color:var(--gold)}
-.hero-sub{font-size:17px;color:var(--ink2);max-width:520px;line-height:1.65;margin-bottom:2.5rem}
-.btn-hero{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--white);font-size:16px;font-weight:500;padding:15px 32px;border-radius:var(--r);border:none;cursor:pointer;transition:all .15s;font-family:var(--font-b)}
-.btn-hero:hover{background:#2a2d35;transform:translateY(-1px);box-shadow:0 4px 20px rgba(0,0,0,.15)}
-.hero-trust{display:flex;align-items:center;gap:.6rem;margin-top:1.25rem;font-size:13px;color:var(--ink3)}
-.stars{color:#F59E0B;letter-spacing:-1px}
+/* ── HOME ── */
+.hero{padding:5rem 1.5rem 4rem;text-align:center;display:flex;flex-direction:column;align-items:center}
+.hero-kicker{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:1.25rem;display:flex;align-items:center;gap:10px}
+.hero-kicker::before,.hero-kicker::after{content:'';display:block;width:32px;height:1px;background:var(--goldr)}
+h1{font-family:var(--fd);font-size:clamp(36px,6vw,64px);line-height:1.08;font-weight:400;color:var(--ink);max-width:700px;margin-bottom:1.25rem}
+h1 em{font-style:italic;color:var(--green)}
+.hero-sub{font-size:17px;color:var(--ink2);max-width:520px;line-height:1.7;margin-bottom:3rem}
 
-/* ── PROOF STRIP ── */
-.proof-strip{background:var(--surf);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:1.25rem 2rem;display:flex;justify-content:center;gap:3rem;flex-wrap:wrap}
-.proof-item{font-size:13px;color:var(--ink3);display:flex;align-items:center;gap:6px}
-.proof-item::before{content:'✓';color:var(--gold);font-weight:700}
+/* OFFRES GRID */
+.offers-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:860px;width:100%;margin:0 auto;padding:0 1.5rem 5rem}
+.offer-card{background:var(--white);border:1.5px solid var(--rule);border-radius:16px;overflow:hidden;transition:box-shadow .2s,transform .2s;cursor:pointer;text-align:left}
+.offer-card:hover{box-shadow:0 8px 40px rgba(0,0,0,.1);transform:translateY(-3px)}
+.offer-card.featured{border-color:var(--gold)}
 
-/* ── HOW IT WORKS ── */
-.how{padding:5rem 1.5rem;max-width:960px;margin:0 auto}
-.section-eyebrow{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:.75rem}
-.section-title{font-family:var(--font-d);font-size:clamp(28px,4vw,42px);text-align:center;font-weight:400;color:var(--ink);margin-bottom:3.5rem;line-height:1.2}
-.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
-.step-card{text-align:center;padding:1.5rem 1rem}
-.step-num{width:48px;height:48px;border-radius:50%;border:1.5px solid var(--goldr);background:var(--goldd);font-family:var(--font-d);font-size:22px;color:var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem}
-.step-label{font-weight:600;font-size:15px;color:var(--ink);margin-bottom:.4rem}
-.step-desc{font-size:13px;color:var(--ink3);line-height:1.6}
+.offer-top{padding:2rem 2rem 1.5rem}
+.offer-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:1rem}
+.badge-simple{background:var(--greenl);color:var(--green)}
+.badge-premium{background:var(--goldl);color:#8B6914;border:1px solid var(--goldr)}
+.offer-name{font-family:var(--fd);font-size:24px;font-weight:600;color:var(--ink);margin-bottom:.4rem}
+.offer-desc{font-size:13px;color:var(--ink3);line-height:1.6;margin-bottom:1.5rem}
+.offer-price{display:flex;align-items:baseline;gap:6px;margin-bottom:.3rem}
+.offer-price-num{font-family:var(--fd);font-size:48px;font-weight:700;color:var(--ink)}
+.offer-price-cur{font-size:20px;color:var(--ink3)}
+.offer-price-note{font-size:12px;color:var(--ink3)}
 
-/* ── INCLUDES ── */
-.includes{background:var(--ink);padding:5rem 1.5rem;text-align:center}
-.includes-title{font-family:var(--font-d);font-size:clamp(26px,4vw,40px);color:var(--white);font-weight:400;margin-bottom:.75rem}
-.includes-sub{color:rgba(255,255,255,.6);font-size:15px;margin-bottom:3rem;max-width:480px;margin-left:auto;margin-right:auto}
-.includes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.08);max-width:800px;margin:0 auto 3rem;border-radius:var(--r);overflow:hidden}
-.include-item{background:#151619;padding:1.5rem;text-align:left}
-.include-icon{font-size:20px;margin-bottom:.75rem}
-.include-name{font-weight:500;font-size:14px;color:var(--white);margin-bottom:.3rem}
-.include-desc{font-size:12px;color:rgba(255,255,255,.5);line-height:1.5}
-.price-box{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:2rem;max-width:360px;margin:0 auto;display:inline-block}
-.price-label{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.4);margin-bottom:.5rem}
-.price-amount{font-family:var(--font-d);font-size:52px;color:var(--white);line-height:1}
-.price-sub{font-size:14px;color:rgba(255,255,255,.5);margin:.5rem 0 1.5rem}
-.btn-price{display:block;background:var(--gold);color:var(--ink);font-size:16px;font-weight:600;padding:14px 28px;border-radius:var(--r);border:none;cursor:pointer;transition:all .15s;font-family:var(--font-b);text-align:center}
-.btn-price:hover{background:#b8943e;transform:translateY(-1px)}
+.offer-items{padding:0 2rem;border-top:1px solid var(--rule)}
+.offer-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--rule);font-size:13px;color:var(--ink2)}
+.offer-item:last-child{border-bottom:none}
+.offer-item-icon{font-size:14px;flex-shrink:0;margin-top:1px}
 
-/* ── TESTIMONIALS ── */
-.testi{padding:5rem 1.5rem;max-width:900px;margin:0 auto}
-.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem}
-.testi-card{background:var(--surf);border:1px solid var(--rule);border-radius:12px;padding:1.5rem}
-.testi-stars{color:#F59E0B;font-size:13px;margin-bottom:.75rem}
-.testi-text{font-size:14px;color:var(--ink2);line-height:1.7;margin-bottom:1rem;font-style:italic}
-.testi-author{font-size:13px;font-weight:600;color:var(--ink)}
-.testi-role{font-size:12px;color:var(--ink3)}
+.offer-btn{display:block;margin:1.5rem 2rem 2rem;text-align:center;padding:14px;border-radius:var(--r);border:none;cursor:pointer;font-family:var(--fb);font-size:15px;font-weight:600;transition:all .2s}
+.btn-simple{background:var(--green);color:#fff}
+.btn-simple:hover{background:var(--greenm)}
+.btn-premium{background:linear-gradient(135deg,#C8A96E,#B8943E);color:#fff}
+.btn-premium:hover{background:linear-gradient(135deg,#B8943E,#A07830);transform:translateY(-1px);box-shadow:0 4px 16px rgba(200,169,110,.35)}
 
-/* ── FAQ ── */
-.faq{padding:5rem 1.5rem;max-width:700px;margin:0 auto}
-.faq-item{border-bottom:1px solid var(--rule);padding:1.25rem 0}
-.faq-q{font-weight:600;font-size:15px;color:var(--ink);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem}
-.faq-q::after{content:'＋';font-size:18px;color:var(--ink3);flex-shrink:0;transition:transform .2s}
-.faq-item.open .faq-q::after{transform:rotate(45deg)}
-.faq-a{font-size:14px;color:var(--ink2);line-height:1.7;padding-top:.75rem;display:none}
+/* PROOF */
+.proof{background:var(--ink);padding:3rem 1.5rem;text-align:center}
+.proof-title{font-family:var(--fd);font-size:clamp(24px,4vw,36px);color:#fff;font-weight:400;margin-bottom:.6rem}
+.proof-sub{font-size:15px;color:rgba(255,255,255,.5);margin-bottom:2.5rem}
+.proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;max-width:800px;margin:0 auto}
+.proof-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1.5rem}
+.proof-stars{color:#E8A838;margin-bottom:.75rem;font-size:14px}
+.proof-text{font-size:13px;color:rgba(255,255,255,.7);line-height:1.7;font-style:italic;margin-bottom:1rem}
+.proof-name{font-size:12px;font-weight:600;color:#fff}
+.proof-role{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px}
+.proof-result{font-size:10px;font-weight:700;color:var(--gold);background:rgba(200,169,110,.15);padding:2px 8px;border-radius:20px;display:inline-block;margin-top:.5rem}
+
+/* FAQ */
+.faq{padding:4rem 1.5rem 5rem;max-width:700px;margin:0 auto}
+.faq-title{font-family:var(--fd);font-size:clamp(24px,3vw,36px);text-align:center;color:var(--ink);margin-bottom:2rem}
+.faq-item{border-bottom:1px solid var(--rule)}
+.faq-q{width:100%;background:none;border:none;padding:1.25rem 0;font-family:var(--fb);font-size:15px;font-weight:500;color:var(--ink);text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.faq-icon{font-size:18px;color:var(--ink3);transition:transform .2s;flex-shrink:0}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+.faq-a{font-size:14px;color:var(--ink2);line-height:1.75;padding-bottom:1.25rem;display:none}
 .faq-item.open .faq-a{display:block}
 
-/* ── FOOTER ── */
-footer{background:var(--surf);border-top:1px solid var(--rule);padding:2rem;text-align:center;font-size:13px;color:var(--ink3)}
+footer{background:var(--ink);padding:2rem;text-align:center;font-size:12px;color:rgba(255,255,255,.3)}
+.footer-logo{font-family:var(--fd);font-size:16px;color:#fff;margin-bottom:.5rem}
 
-/* ── FORM SCREEN ── */
-#screen-form{background:var(--surf);min-height:100vh;padding:2.5rem 1.5rem 5rem}
-.form-wrap{max-width:680px;margin:0 auto}
-.form-header{margin-bottom:2rem}
-.form-back{background:none;border:none;color:var(--ink3);font-size:14px;cursor:pointer;font-family:var(--font-b);display:flex;align-items:center;gap:6px;margin-bottom:1.25rem;padding:0;transition:color .15s}
+/* ── FORMS ── */
+.form-screen{background:var(--surf);min-height:100vh;padding:0 0 5rem}
+.form-bar{background:var(--white);border-bottom:1px solid var(--rule);padding:1rem 2rem;display:flex;align-items:center;gap:1rem;position:sticky;top:58px;z-index:50}
+.form-back{background:none;border:none;cursor:pointer;font-family:var(--fb);font-size:13px;color:var(--ink3);display:flex;align-items:center;gap:5px;padding:0}
 .form-back:hover{color:var(--ink)}
-.form-eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:.4rem}
-.form-title{font-family:var(--font-d);font-size:28px;color:var(--ink);font-weight:400}
-.prog-label{font-size:12px;color:var(--ink3);margin-bottom:.4rem;display:flex;justify-content:space-between}
-.prog-track{height:2px;background:var(--rule);border-radius:2px;margin-bottom:2rem}
-.prog-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .4s ease}
-.step{display:none}
-.step.active{display:block;animation:fi .25s ease}
-@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.step-title{font-family:var(--font-d);font-size:22px;font-weight:400;color:var(--ink);margin-bottom:.35rem}
-.step-sub{font-size:14px;color:var(--ink3);margin-bottom:1.75rem}
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.prog-wrap{flex:1}
+.prog-labels{display:flex;justify-content:space-between;font-size:12px;color:var(--ink3);margin-bottom:5px}
+.prog-track{height:2px;background:var(--rule);border-radius:2px}
+.prog-fill{height:100%;border-radius:2px;transition:width .4s ease}
+.prog-fill-green{background:var(--green)}
+.prog-fill-gold{background:var(--gold)}
+.form-content{max-width:660px;margin:0 auto;padding:2.5rem 1.5rem}
+.step-form{display:none}
+.step-form.active{display:block;animation:fi .25s ease}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.step-h{font-family:var(--fd);font-size:24px;font-weight:400;color:var(--ink);margin-bottom:.3rem}
+.step-p{font-size:14px;color:var(--ink3);margin-bottom:1.75rem}
 .field{margin-bottom:1.25rem}
 .field label{display:block;font-size:13px;font-weight:500;color:var(--ink2);margin-bottom:.4rem}
-.req{color:var(--gold);margin-left:2px}
-.field input,.field select,.field textarea{width:100%;border:1px solid var(--rule);border-radius:var(--r);padding:10px 13px;font-family:var(--font-b);font-size:14px;color:var(--ink);background:var(--white);transition:border-color .15s,box-shadow .15s;outline:none}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.12)}
+.req{color:var(--gold)}
+.field input,.field select,.field textarea{width:100%;border:1px solid var(--rule);border-radius:var(--r);padding:10px 13px;font-family:var(--fb);font-size:14px;color:var(--ink);background:var(--white);outline:none;transition:border-color .15s,box-shadow .15s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(26,74,46,.1)}
 .field textarea{resize:vertical;min-height:90px}
 .field-hint{font-size:12px;color:var(--ink3);margin-top:.3rem}
-.radio-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.25rem}
-.radio-card{border:1.5px solid var(--rule);border-radius:var(--r);padding:.875rem 1rem;cursor:pointer;transition:border-color .15s,background .15s;display:flex;align-items:flex-start;gap:10px}
-.radio-card:hover{border-color:var(--goldr);background:var(--goldd)}
-.radio-card.selected{border-color:var(--gold);background:var(--goldd)}
-.radio-card input{display:none}
-.radio-icon{font-size:20px;flex-shrink:0;margin-top:1px}
-.radio-label{font-size:13px;font-weight:500;color:var(--ink)}
-.radio-sub{font-size:12px;color:var(--ink3);margin-top:2px}
-.step-nav{display:flex;gap:.75rem;margin-top:1.5rem;justify-content:space-between;align-items:center}
-.btn-back{font-family:var(--font-b);font-size:14px;color:var(--ink3);background:none;border:1px solid var(--rule);border-radius:var(--r);padding:10px 20px;cursor:pointer;transition:border-color .15s,color .15s}
-.btn-back:hover{border-color:var(--ink3);color:var(--ink)}
-.btn-next{font-family:var(--font-b);font-size:14px;font-weight:500;color:var(--white);background:var(--ink);border:none;border-radius:var(--r);padding:11px 24px;cursor:pointer;transition:background .15s;display:flex;align-items:center;gap:8px}
-.btn-next:hover{background:#2a2d35}
-.err{background:#FEF2F2;border:1px solid #FCA5A5;border-radius:var(--r);padding:.875rem 1rem;font-size:14px;color:#B91C1C;margin-top:1rem;display:none}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.radio-group{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.25rem}
+.r-card{border:1.5px solid var(--rule);border-radius:var(--r);padding:.875rem 1rem;cursor:pointer;transition:border-color .15s,background .15s;display:flex;align-items:flex-start;gap:10px}
+.r-card:hover{border-color:var(--goldr);background:var(--goldl)}
+.r-card.sel{border-color:var(--gold);background:var(--goldl)}
+.r-card input{display:none}
+.r-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.r-label{font-size:13px;font-weight:500;color:var(--ink)}
+.r-sub{font-size:12px;color:var(--ink3);margin-top:1px}
+.sep{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin:1.25rem 0 .875rem;padding-left:.75rem;border-left:2px solid var(--gold)}
+.step-nav{display:flex;gap:.75rem;margin-top:1.75rem;justify-content:space-between;align-items:center}
+.btn-bk{font-family:var(--fb);font-size:14px;color:var(--ink3);background:none;border:1px solid var(--rule);border-radius:var(--r);padding:10px 20px;cursor:pointer;transition:all .15s}
+.btn-bk:hover{border-color:var(--ink3);color:var(--ink)}
+.btn-fw{font-family:var(--fb);font-size:14px;font-weight:600;color:#fff;background:var(--green);border:none;border-radius:var(--r);padding:11px 24px;cursor:pointer;transition:all .15s;margin-left:auto}
+.btn-fw:hover{background:var(--greenm)}
+.btn-fw.gold-btn{background:linear-gradient(135deg,#C8A96E,#B8943E);color:#fff}
+.btn-fw.gold-btn:hover{background:linear-gradient(135deg,#B8943E,#A07830)}
+.err-msg{background:#FEF2F2;border:1px solid #FECACA;border-radius:var(--r);padding:.75rem 1rem;font-size:13px;color:#B91C1C;margin-top:.75rem;display:none}
 
-/* ── PAYMENT SCREEN ── */
-#screen-payment{background:var(--surf);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 1.5rem;text-align:center}
-.payment-card{background:var(--white);border:1px solid var(--rule);border-radius:16px;padding:2.5rem;max-width:460px;width:100%;box-shadow:0 4px 24px rgba(0,0,0,.08)}
-.payment-icon{font-size:40px;margin-bottom:1rem}
-.payment-title{font-family:var(--font-d);font-size:26px;font-weight:400;color:var(--ink);margin-bottom:.4rem}
-.payment-sub{font-size:14px;color:var(--ink3);margin-bottom:2rem}
-.payment-recap{background:var(--surf);border:1px solid var(--rule);border-radius:var(--r);padding:1.25rem;margin-bottom:1.5rem;text-align:left}
-.recap-row{display:flex;justify-content:space-between;font-size:14px;padding:4px 0;color:var(--ink2)}
-.recap-row.total{font-weight:600;color:var(--ink);border-top:1px solid var(--rule);margin-top:8px;padding-top:12px;font-size:16px}
-.btn-pay{width:100%;background:var(--gold);color:var(--ink);font-size:16px;font-weight:700;padding:16px;border-radius:var(--r);border:none;cursor:pointer;font-family:var(--font-b);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:10px}
-.btn-pay:hover{background:#b8943e;transform:translateY(-1px)}
-.btn-pay:disabled{background:#ccc;cursor:not-allowed;transform:none}
-.payment-secure{font-size:12px;color:var(--ink3);margin-top:1rem;display:flex;align-items:center;justify-content:center;gap:6px}
-.payment-err{color:#B91C1C;font-size:13px;margin-top:.75rem;display:none}
+/* ── PAYMENT ── */
+.pay-screen{background:var(--surf);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:3rem 1.5rem}
+.pay-card{background:var(--white);border:1px solid var(--rule);border-radius:16px;max-width:480px;width:100%;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.08)}
+.pay-top-simple{background:var(--green);padding:2rem;text-align:center}
+.pay-top-premium{background:linear-gradient(135deg,#C8A96E,#8B6914);padding:2rem;text-align:center}
+.pay-top h2{font-family:var(--fd);font-size:22px;font-weight:400;color:#fff;margin-bottom:4px}
+.pay-top p{font-size:13px;color:rgba(255,255,255,.7)}
+.pay-body{padding:1.75rem}
+.pay-recap{background:var(--surf);border:1px solid var(--rule);border-radius:var(--r);padding:1rem 1.25rem;margin-bottom:1.5rem}
+.pay-row{display:flex;justify-content:space-between;font-size:14px;color:var(--ink2);padding:4px 0}
+.pay-row.total{font-weight:700;color:var(--ink);border-top:1px solid var(--rule);margin-top:8px;padding-top:12px;font-size:16px}
+.btn-pay{width:100%;font-family:var(--fb);font-size:16px;font-weight:700;padding:16px;border-radius:var(--r);border:none;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-pay-simple{background:var(--green);color:#fff}
+.btn-pay-simple:hover{background:var(--greenm)}
+.btn-pay-premium{background:linear-gradient(135deg,#C8A96E,#B8943E);color:#fff}
+.btn-pay-premium:hover{background:linear-gradient(135deg,#B8943E,#A07830)}
+.btn-pay:disabled{background:#ccc;cursor:not-allowed}
+.pay-secure{text-align:center;font-size:12px;color:var(--ink3);margin-top:.875rem}
+.pay-guarantee{text-align:center;font-size:12px;color:var(--ink3);margin-top:.5rem}
+.pay-err{color:#B91C1C;font-size:13px;text-align:center;margin-top:.75rem;display:none}
+.btn-pay-back{display:block;width:100%;background:none;border:1px solid var(--rule);border-radius:var(--r);padding:10px;font-family:var(--fb);font-size:13px;color:var(--ink3);cursor:pointer;margin-top:.75rem}
 
 /* ── SUCCESS ── */
-#screen-success{background:var(--surf);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 1.5rem;text-align:center}
+.success-screen{background:var(--surf);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 1.5rem;text-align:center}
 .success-icon{font-size:56px;margin-bottom:1.25rem}
-.success-title{font-family:var(--font-d);font-size:32px;font-weight:400;color:var(--ink);margin-bottom:.6rem}
-.success-sub{font-size:16px;color:var(--ink2);max-width:420px;line-height:1.65}
-.success-email{font-weight:600;color:var(--gold)}
+.success-h{font-family:var(--fd);font-size:32px;font-weight:400;color:var(--ink);margin-bottom:.6rem}
+.success-p{font-size:16px;color:var(--ink2);max-width:440px;line-height:1.7}
+.success-email{font-weight:600;color:var(--green)}
+.success-items{background:var(--white);border:1px solid var(--rule);border-radius:10px;padding:1.25rem 1.5rem;max-width:400px;width:100%;text-align:left;margin:1.5rem auto 2rem}
+.si{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--ink2);padding:5px 0}
+.si::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0}
 
-/* ── RESPONSIVE ── */
 @media(max-width:640px){
-  .steps-grid,.includes-grid,.testi-grid{grid-template-columns:1fr}
-  .field-row,.radio-grid{grid-template-columns:1fr}
-  .proof-strip{gap:1rem}
-  h1{font-size:36px}
+  .offers-grid{grid-template-columns:1fr}
+  .proof-grid{grid-template-columns:1fr}
+  .grid2,.radio-group{grid-template-columns:1fr}
+  header{padding:0 1.25rem}
 }
 </style>
 </head>
 <body>
 
-<!-- ═══════════ HEADER ═══════════ -->
 <header>
-  <a class="logo" onclick="showHome()">
-    <div class="logo-mark">📄</div>
-    PlanIA
-  </a>
-  <button class="nav-cta" onclick="startForm()">Créer mon business plan →</button>
+  <div class="logo" onclick="showHome()"><span class="logo-dot"></span>PlanIA</div>
 </header>
 
-<!-- ═══════════ SCREEN HOME ═══════════ -->
+<!-- ═══ HOME ═══════════════════════════════════════════ -->
 <div id="screen-home" class="screen active">
-
-  <!-- HERO -->
   <section class="hero">
-    <div class="hero-eyebrow">Intelligence Artificielle · Qualité Cabinet Conseil</div>
-    <h1>Votre business plan<br><em>professionnel</em><br>en 5 minutes</h1>
-    <p class="hero-sub">Répondez à quelques questions. Notre IA génère un dossier complet, chiffré et crédible — prêt à soumettre à votre banque ou investisseur.</p>
-    <button class="btn-hero" onclick="startForm()">
-      Générer mon business plan →
-    </button>
-    <div class="hero-trust">
-      <span class="stars">★★★★★</span>
-      <span>4,9/5 · Plus de 200 entrepreneurs satisfaits</span>
-    </div>
+    <div class="hero-kicker">Dossiers professionnels · Livrés par email</div>
+    <h1>Le dossier qui fait dire<br><em>oui</em> à votre banque</h1>
+    <p class="hero-sub">Choisissez votre pack. Répondez au formulaire. Recevez vos documents professionnels en PDF par email en moins de 5 minutes.</p>
   </section>
 
-  <!-- PROOF STRIP -->
-  <div class="proof-strip">
-    <div class="proof-item">Prévisionnel financier 3 ans</div>
-    <div class="proof-item">Étude de marché complète</div>
-    <div class="proof-item">Plan de financement</div>
-    <div class="proof-item">Analyse des risques</div>
-    <div class="proof-item">Livraison par email en 5 min</div>
-    <div class="proof-item">Format banque &amp; investisseur</div>
+  <div class="offers-grid">
+    <!-- SIMPLE -->
+    <div class="offer-card" onclick="startForm('simple')">
+      <div class="offer-top">
+        <div class="offer-badge badge-simple">Business Plan Simple</div>
+        <div class="offer-name">L'Essentiel</div>
+        <div class="offer-desc">Un business plan complet et crédible, prêt à soumettre à votre banque ou investisseur.</div>
+        <div class="offer-price">
+          <span class="offer-price-cur">€</span>
+          <span class="offer-price-num">100</span>
+        </div>
+        <div class="offer-price-note">Paiement unique · Livraison immédiate</div>
+      </div>
+      <div class="offer-items">
+        <div class="offer-item"><span class="offer-item-icon">📋</span>Résumé exécutif</div>
+        <div class="offer-item"><span class="offer-item-icon">📊</span>Prévisionnel financier 3 ans</div>
+        <div class="offer-item"><span class="offer-item-icon">🎯</span>Stratégie commerciale</div>
+        <div class="offer-item"><span class="offer-item-icon">⚠️</span>Analyse des risques</div>
+        <div class="offer-item"><span class="offer-item-icon">📄</span>1 document PDF professionnel</div>
+      </div>
+      <button class="offer-btn btn-simple" onclick="event.stopPropagation();startForm('simple')">
+        Créer mon business plan →
+      </button>
+    </div>
+
+    <!-- PREMIUM -->
+    <div class="offer-card featured" onclick="startForm('premium')">
+      <div class="offer-top">
+        <div class="offer-badge badge-premium">⭐ Pack Premium</div>
+        <div class="offer-name">Le Dossier Complet</div>
+        <div class="offer-desc">Trois livrables professionnels pour convaincre banques, investisseurs et organismes de financement.</div>
+        <div class="offer-price">
+          <span class="offer-price-cur">€</span>
+          <span class="offer-price-num">200</span>
+        </div>
+        <div class="offer-price-note">Paiement unique · Livraison immédiate</div>
+      </div>
+      <div class="offer-items">
+        <div class="offer-item"><span class="offer-item-icon">📊</span><strong>Fichier Excel financier</strong> — 4 feuilles, 100+ formules dynamiques, entièrement modifiable</div>
+        <div class="offer-item"><span class="offer-item-icon">📄</span><strong>PDF Présentation projet</strong> — 10 sections, style cabinet de conseil</div>
+        <div class="offer-item"><span class="offer-item-icon">📈</span><strong>PDF Étude de marché</strong> — Analyse SWOT, concurrence, stratégie</div>
+        <div class="offer-item"><span class="offer-item-icon">✉️</span>3 fichiers livrés par email en 5 min</div>
+      </div>
+      <button class="offer-btn btn-premium" onclick="event.stopPropagation();startForm('premium')">
+        Obtenir le pack complet →
+      </button>
+    </div>
   </div>
 
-  <!-- HOW IT WORKS -->
-  <section class="how">
-    <div class="section-eyebrow">Comment ça marche</div>
-    <h2 class="section-title">De l'idée au dossier<br>en 4 étapes</h2>
-    <div class="steps-grid">
-      <div class="step-card">
-        <div class="step-num">1</div>
-        <div class="step-label">Remplissez le formulaire</div>
-        <div class="step-desc">6 étapes guidées pour décrire votre projet, votre marché et vos chiffres. 5 à 10 minutes.</div>
+  <!-- PROOF -->
+  <div class="proof">
+    <div class="proof-title">Ils ont obtenu leur financement</div>
+    <div class="proof-sub">Plus de 200 entrepreneurs satisfaits</div>
+    <div class="proof-grid">
+      <div class="proof-card">
+        <div class="proof-stars">★★★★★</div>
+        <div class="proof-text">"Mon conseiller bancaire m'a dit que c'était l'un des meilleurs dossiers reçus cette année. Prêt accordé en 3 semaines."</div>
+        <div class="proof-name">Sarah M.</div>
+        <div class="proof-role">Boutique cosmétiques bio, Paris</div>
+        <div class="proof-result">✓ Prêt de 35 000 € accordé</div>
       </div>
-      <div class="step-card">
-        <div class="step-num">2</div>
-        <div class="step-label">Payez 100 €</div>
-        <div class="step-desc">Paiement sécurisé par carte bancaire via Stripe. Satisfait ou remboursé sous 24h.</div>
+      <div class="proof-card">
+        <div class="proof-stars">★★★★★</div>
+        <div class="proof-text">"Le pack premium vaut 10x son prix. L'Excel financier m'a permis de tester différents scénarios avant ma présentation."</div>
+        <div class="proof-name">Karim B.</div>
+        <div class="proof-role">Repreneur restaurant, Lyon</div>
+        <div class="proof-result">✓ Financement BPI accordé</div>
       </div>
-      <div class="step-card">
-        <div class="step-num">3</div>
-        <div class="step-label">L'IA génère votre plan</div>
-        <div class="step-desc">Claude, l'IA d'Anthropic, rédige votre business plan complet en moins de 2 minutes.</div>
-      </div>
-      <div class="step-card">
-        <div class="step-num">4</div>
-        <div class="step-label">Réception par email</div>
-        <div class="step-desc">Votre business plan arrive dans votre boîte mail, prêt à être imprimé ou converti en PDF.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- INCLUDES + PRICE -->
-  <section class="includes">
-    <h2 class="includes-title">Tout ce qu'il vous faut,<br>dans un seul document</h2>
-    <p class="includes-sub">Chaque business plan inclut 8 sections rédigées et chiffrées par l'IA.</p>
-    <div class="includes-grid">
-      <div class="include-item">
-        <div class="include-icon">📋</div>
-        <div class="include-name">Résumé exécutif</div>
-        <div class="include-desc">Synthèse percutante du projet pour accrocher dès la première page</div>
-      </div>
-      <div class="include-item">
-        <div class="include-icon">👤</div>
-        <div class="include-name">Porteur de projet</div>
-        <div class="include-desc">Votre profil, vos compétences et votre légitimité mis en valeur</div>
-      </div>
-      <div class="include-item">
-        <div class="include-icon">🏪</div>
-        <div class="include-name">Présentation du projet</div>
-        <div class="include-desc">Description détaillée de l'activité, de l'offre et du modèle économique</div>
-      </div>
-      <div class="include-item">
-        <div class="include-icon">📊</div>
-        <div class="include-name">Étude de marché</div>
-        <div class="include-desc">Analyse du marché, de la concurrence et du positionnement</div>
-      </div>
-      <div class="include-item">
-        <div class="include-icon">💰</div>
-        <div class="include-name">Prévisionnel 3 ans</div>
-        <div class="include-desc">Compte de résultat, CAF, seuil de rentabilité, plan de financement</div>
-      </div>
-      <div class="include-item">
-        <div class="include-icon">🎯</div>
-        <div class="include-name">Stratégie commerciale</div>
-        <div class="include-desc">Plan d'acquisition, canaux de distribution, objectifs chiffrés</div>
-      </div>
-      <div class="include-item">
-        <div class="include-icon">⚠️</div>
-        <div class="include-name">Analyse des risques</div>
-        <div class="include-desc">5 risques identifiés avec leurs niveaux et mesures correctives</div>
-      </div>
-      <div class="include-item">
-        <div class="include-icon">📈</div>
-        <div class="include-name">Plan d'investissement</div>
-        <div class="include-desc">Détail des besoins, des ressources et de l'équilibre financier</div>
-      </div>
-      <div class="include-item">
-        <div class="include-icon">✉️</div>
-        <div class="include-name">Livraison par email</div>
-        <div class="include-desc">Reçu par email en moins de 5 minutes, format imprimable</div>
+      <div class="proof-card">
+        <div class="proof-stars">★★★★★</div>
+        <div class="proof-text">"L'étude de marché incluse dans le premium m'a évité de payer 1 500 € à un cabinet. Qualité identique, résultat identique."</div>
+        <div class="proof-name">Michel T.</div>
+        <div class="proof-role">Artisan menuisier, Bordeaux</div>
+        <div class="proof-result">✓ Subvention région obtenue</div>
       </div>
     </div>
-    <br><br>
-    <div class="price-box">
-      <div class="price-label">Prix unique · Tout inclus</div>
-      <div class="price-amount">100 €</div>
-      <div class="price-sub">Paiement sécurisé · Livraison immédiate</div>
-      <button class="btn-price" onclick="startForm()">Créer mon business plan →</button>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section class="testi">
-    <div class="section-eyebrow">Témoignages</div>
-    <h2 class="section-title">Ils ont lancé leur projet<br>avec PlanIA</h2>
-    <div class="testi-grid">
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"Mon dossier bancaire était prêt en 20 minutes. Le conseiller m'a dit qu'il était très bien structuré. Prêt accordé !"</p>
-        <div class="testi-author">Sarah M.</div>
-        <div class="testi-role">Créatrice d'une boutique de cosmétiques bio</div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"Le prévisionnel financier est bluffant de précision. J'ai utilisé les chiffres tels quels pour ma levée de fonds."</p>
-        <div class="testi-author">Karim B.</div>
-        <div class="testi-role">Fondateur d'une startup SaaS</div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"En tant qu'artisan, je n'aurais jamais pu rédiger un tel business plan seul. PlanIA m'a tout simplifié."</p>
-        <div class="testi-author">Michel T.</div>
-        <div class="testi-role">Artisan menuisier en création d'entreprise</div>
-      </div>
-    </div>
-  </section>
+  </div>
 
   <!-- FAQ -->
   <section class="faq">
-    <div class="section-eyebrow">Questions fréquentes</div>
-    <h2 class="section-title" style="margin-bottom:2rem">Vous avez des questions ?</h2>
+    <div class="faq-title">Questions fréquentes</div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Le business plan est-il vraiment professionnel ?</div>
-      <div class="faq-a">Oui. Notre IA est entraînée sur des milliers de business plans rédigés par des cabinets conseil spécialisés. Le document inclut toutes les sections attendues par une banque ou un investisseur : résumé exécutif, étude de marché, prévisionnel financier sur 3 ans, analyse des risques, etc.</div>
+      <button class="faq-q" onclick="faq(this)">Quelle est la différence entre les deux offres ? <span class="faq-icon">+</span></button>
+      <div class="faq-a">L'offre Simple génère un business plan complet en 1 document PDF (8 sections). Le Pack Premium génère 3 documents : un fichier Excel financier entièrement modifiable, un PDF de présentation du projet en 10 sections, et un PDF d'étude de marché avec analyse SWOT, concurrence et stratégie complète.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Combien de temps pour recevoir mon business plan ?</div>
-      <div class="faq-a">Après paiement, vous recevez votre business plan par email en moins de 5 minutes. L'IA génère le document en temps réel et l'envoi est automatique.</div>
+      <button class="faq-q" onclick="faq(this)">Combien de temps pour recevoir mes documents ? <span class="faq-icon">+</span></button>
+      <div class="faq-a">Après confirmation du paiement, vous recevez vos documents par email en moins de 5 minutes. Les documents sont générés automatiquement dès que le paiement est validé par Stripe.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Est-ce que je peux modifier le business plan reçu ?</div>
-      <div class="faq-a">Oui ! Le document est livré au format HTML que vous pouvez ouvrir dans votre navigateur, imprimer en PDF, ou copier dans Word pour l'éditer librement.</div>
+      <button class="faq-q" onclick="faq(this)">Les documents sont-ils vraiment professionnels ? <span class="faq-icon">+</span></button>
+      <div class="faq-a">Oui. Le contenu est rédigé par une intelligence artificielle entraînée sur des milliers de dossiers professionnels. Les documents suivent exactement la structure attendue par les banques, investisseurs et organismes de financement français. Satisfait ou remboursé sous 24h.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Y a-t-il une garantie satisfait ou remboursé ?</div>
-      <div class="faq-a">Oui. Si le business plan généré ne correspond pas à votre projet (section manquante, erreur majeure), nous vous remboursons intégralement sous 24h. Contactez-nous par email.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Le paiement est-il sécurisé ?</div>
-      <div class="faq-a">Oui. Le paiement est traité par Stripe, la référence mondiale du paiement en ligne utilisée par Amazon, Deliveroo et des millions d'entreprises. Nous ne stockons aucune donnée bancaire.</div>
+      <button class="faq-q" onclick="faq(this)">Puis-je modifier les documents reçus ? <span class="faq-icon">+</span></button>
+      <div class="faq-a">Oui. Les PDF sont imprimables et vous pouvez les convertir en Word pour les éditer. Le fichier Excel (Pack Premium) est entièrement modifiable — toutes les hypothèses financières sont en cellules bleues que vous pouvez changer librement.</div>
     </div>
   </section>
 
   <footer>
-    © 2025 PlanIA · Tous droits réservés ·
-    <a href="mailto:contact@plania.fr" style="color:var(--ink3);">contact@plania.fr</a>
+    <div class="footer-logo">PlanIA</div>
+    <div>© 2025 PlanIA · Tous droits réservés · <a href="mailto:contact@plania.fr" style="color:rgba(255,255,255,.3)">contact@plania.fr</a></div>
   </footer>
+</div>
 
-</div><!-- /screen-home -->
-
-<!-- ═══════════ SCREEN FORM ═══════════ -->
-<div id="screen-form" class="screen">
-<div class="form-wrap">
-  <div class="form-header">
-    <button class="form-back" onclick="showHome()">← Retour à l'accueil</button>
-    <div class="form-eyebrow">Formulaire de génération</div>
-    <h2 class="form-title">Décrivez votre projet</h2>
+<!-- ═══ FORMULAIRE SIMPLE ═══════════════════════════════ -->
+<div id="screen-simple" class="screen form-screen">
+  <div class="form-bar">
+    <button class="form-back" onclick="showHome()">← Retour</button>
+    <div class="prog-wrap">
+      <div class="prog-labels">
+        <span id="prog-s-step">Étape 1 / 6</span>
+        <span id="prog-s-name">Destinataire & Profil</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill prog-fill-green" id="prog-s-fill" style="width:16%"></div></div>
+    </div>
   </div>
-  <div class="prog-label">
-    <span id="prog-text">Étape 1 / 6</span>
-    <span id="prog-name">Destinataire &amp; Profil</span>
-  </div>
-  <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:16%"></div></div>
-
-  <!-- STEP 1 -->
-  <div class="step active" id="step-1">
-    <h3 class="step-title">Pour qui &amp; qui êtes-vous ?</h3>
-    <p class="step-sub">Le format du business plan s'adapte selon le destinataire.</p>
-    <div class="field">
-      <label>Destinataire du business plan <span class="req">*</span></label>
-      <div class="radio-grid">
-        <label class="radio-card" onclick="pick(this,'destinataire','banque')">
-          <input type="radio" name="destinataire" value="banque">
-          <div><div class="radio-icon">🏦</div><div class="radio-label">Banque / Crédit</div><div class="radio-sub">BPI France, Crédit Agricole, CIC…</div></div>
-        </label>
-        <label class="radio-card" onclick="pick(this,'destinataire','investisseur')">
-          <input type="radio" name="destinataire" value="investisseur">
-          <div><div class="radio-icon">💼</div><div class="radio-label">Investisseur</div><div class="radio-sub">Business angel, fonds, family office</div></div>
-        </label>
-        <label class="radio-card" onclick="pick(this,'destinataire','subvention')">
-          <input type="radio" name="destinataire" value="subvention">
-          <div><div class="radio-icon">🏛️</div><div class="radio-label">Subvention / Asso</div><div class="radio-sub">Mairie, région, fondation, ESS</div></div>
-        </label>
-        <label class="radio-card" onclick="pick(this,'destinataire','personnel')">
-          <input type="radio" name="destinataire" value="personnel">
-          <div><div class="radio-icon">📋</div><div class="radio-label">Usage personnel</div><div class="radio-sub">Comptable, structurer son projet</div></div>
-        </label>
+  <div class="form-content">
+    <!-- STEP S1 -->
+    <div class="step-form active" id="s-step-1">
+      <h3 class="step-h">Pour qui est ce dossier ?</h3>
+      <p class="step-p">Le contenu s'adapte automatiquement selon le destinataire.</p>
+      <div class="radio-group">
+        <label class="r-card" onclick="pick(this,'sdest','banque')"><input type="radio" name="sdest" value="banque"><div><div class="r-icon">🏦</div><div class="r-label">Banque / Crédit</div><div class="r-sub">BPI, CIC, Crédit Agricole…</div></div></label>
+        <label class="r-card" onclick="pick(this,'sdest','investisseur')"><input type="radio" name="sdest" value="investisseur"><div><div class="r-icon">📈</div><div class="r-label">Investisseur</div><div class="r-sub">Business angel, fonds…</div></div></label>
+        <label class="r-card" onclick="pick(this,'sdest','subvention')"><input type="radio" name="sdest" value="subvention"><div><div class="r-icon">🏛️</div><div class="r-label">Subvention</div><div class="r-sub">Région, mairie, fondation…</div></div></label>
+        <label class="r-card" onclick="pick(this,'sdest','personnel')"><input type="radio" name="sdest" value="personnel"><div><div class="r-icon">📋</div><div class="r-label">Usage personnel</div><div class="r-sub">Comptable, structurer…</div></div></label>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>Prénom <span class="req">*</span></label><input type="text" id="s-prenom" placeholder="Marie"></div>
+        <div class="field"><label>Nom <span class="req">*</span></label><input type="text" id="s-nom" placeholder="Dupont"></div>
+      </div>
+      <div class="field"><label>Email de livraison <span class="req">*</span></label><input type="email" id="s-email" placeholder="marie@exemple.fr"><div class="field-hint">Vos documents seront envoyés à cette adresse.</div></div>
+      <div class="field"><label>Votre parcours <span class="req">*</span></label><textarea id="s-parcours" placeholder="Vos expériences, formations et compétences clés."></textarea></div>
+      <div class="err-msg" id="err-s1">Merci de remplir tous les champs et choisir un destinataire.</div>
+      <div class="step-nav"><button class="btn-fw" onclick="sNext(1)">Continuer →</button></div>
+    </div>
+    <!-- STEP S2 -->
+    <div class="step-form" id="s-step-2">
+      <h3 class="step-h">Votre projet</h3>
+      <p class="step-p">Plus vous êtes précis, plus votre dossier sera convaincant.</p>
+      <div class="grid2">
+        <div class="field"><label>Nom du projet <span class="req">*</span></label><input type="text" id="s-nomProjet" placeholder="Restaurant Le Jardin"></div>
+        <div class="field"><label>Secteur <span class="req">*</span></label>
+          <select id="s-secteur"><option value="">Choisir…</option><option>Restauration / Food</option><option>Commerce / Retail</option><option>Services aux entreprises</option><option>Services aux particuliers</option><option>Tech / SaaS / Digital</option><option>Artisanat / Métiers manuels</option><option>Santé / Bien-être</option><option>Éducation / Formation</option><option>Culture / Événementiel / Musique</option><option>Immobilier</option><option>Association / ESS</option><option>Autre</option></select>
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>Forme juridique <span class="req">*</span></label>
+          <select id="s-juridique"><option value="">Choisir…</option><option>Auto-entrepreneur</option><option>EURL</option><option>SARL</option><option>SAS / SASU</option><option>SA</option><option>Association loi 1901</option><option>SCOP / SCIC</option><option>Pas encore décidé</option></select>
+        </div>
+        <div class="field"><label>Ville <span class="req">*</span></label><input type="text" id="s-ville" placeholder="Lyon, Paris…"></div>
+      </div>
+      <div class="field"><label>Description du projet <span class="req">*</span></label><textarea id="s-description" style="min-height:110px" placeholder="Votre activité, votre offre, votre modèle économique…"></textarea></div>
+      <div class="grid2">
+        <div class="field"><label>Lancement prévu</label><input type="text" id="s-lancement" placeholder="Septembre 2025"></div>
+        <div class="field"><label>Type de projet</label>
+          <select id="s-typeActivite"><option value="">Choisir…</option><option>Création ex nihilo</option><option>Reprise d'entreprise</option><option>Franchise</option><option>Extension d'activité</option></select>
+        </div>
+      </div>
+      <div class="err-msg" id="err-s2">Merci de remplir tous les champs obligatoires.</div>
+      <div class="step-nav"><button class="btn-bk" onclick="sPrev(2)">← Retour</button><button class="btn-fw" onclick="sNext(2)">Continuer →</button></div>
+    </div>
+    <!-- STEP S3 -->
+    <div class="step-form" id="s-step-3">
+      <h3 class="step-h">Marché & concurrence</h3>
+      <p class="step-p">Ces informations construisent l'étude de marché et le positionnement.</p>
+      <div class="field"><label>Clients cibles <span class="req">*</span></label><textarea id="s-clients" placeholder="Qui sont-ils ? Où vivent-ils ? Quel est leur problème ?"></textarea></div>
+      <div class="field"><label>Concurrents <span class="req">*</span></label><textarea id="s-concurrents" placeholder="Vos concurrents directs et indirects, leurs points forts/faibles."></textarea></div>
+      <div class="field"><label>Votre différenciation <span class="req">*</span></label><textarea id="s-avantage" placeholder="Pourquoi un client vous choisira plutôt qu'un concurrent ?"></textarea></div>
+      <div class="field"><label>Clients / partenaires confirmés</label><input type="text" id="s-clientsConfirmes" placeholder="Ex : 3 contrats signés, accord de distribution…"></div>
+      <div class="err-msg" id="err-s3">Merci de remplir les champs obligatoires.</div>
+      <div class="step-nav"><button class="btn-bk" onclick="sPrev(3)">← Retour</button><button class="btn-fw" onclick="sNext(3)">Continuer →</button></div>
+    </div>
+    <!-- STEP S4 -->
+    <div class="step-form" id="s-step-4">
+      <h3 class="step-h">Investissements</h3>
+      <p class="step-p">Tout ce dont vous avez besoin avant d'ouvrir. Laissez vide si non applicable.</p>
+      <div class="grid2">
+        <div class="field"><label>Frais d'établissement (€)</label><input type="number" id="s-fraisEtab" placeholder="780" min="0"></div>
+        <div class="field"><label>Matériel / équipements (€)</label><input type="number" id="s-materiel" placeholder="20000" min="0"></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>Travaux (€)</label><input type="number" id="s-travaux" placeholder="15000" min="0"></div>
+        <div class="field"><label>Mobilier / bureau (€)</label><input type="number" id="s-mobilier" placeholder="2500" min="0"></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>Logiciels / formations (€)</label><input type="number" id="s-logiciels" placeholder="500" min="0"></div>
+        <div class="field"><label>Communication (€)</label><input type="number" id="s-comm" placeholder="3000" min="0"></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>Stock initial (€)</label><input type="number" id="s-stock" placeholder="0" min="0"></div>
+        <div class="field"><label>Caution (€)</label><input type="number" id="s-caution" placeholder="600" min="0"></div>
+      </div>
+      <div class="field"><label>Trésorerie de départ (€) <span class="req">*</span></label><input type="number" id="s-tresorerie" placeholder="10000" min="0"></div>
+      <div class="err-msg" id="err-s4">Merci d'indiquer la trésorerie de départ.</div>
+      <div class="step-nav"><button class="btn-bk" onclick="sPrev(4)">← Retour</button><button class="btn-fw" onclick="sNext(4)">Continuer →</button></div>
+    </div>
+    <!-- STEP S5 -->
+    <div class="step-form" id="s-step-5">
+      <h3 class="step-h">Financement & charges</h3>
+      <p class="step-p">Ces chiffres alimentent le prévisionnel financier complet.</p>
+      <div class="sep">Financement</div>
+      <div class="grid2">
+        <div class="field"><label>Apport personnel (€) <span class="req">*</span></label><input type="number" id="s-apport" placeholder="24000" min="0"></div>
+        <div class="field"><label>Emprunt demandé (€)</label><input type="number" id="s-emprunt" placeholder="30000" min="0"></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>Durée (mois)</label><input type="number" id="s-duree" placeholder="60" min="0"></div>
+        <div class="field"><label>Taux (%)</label><input type="number" id="s-taux" placeholder="4.5" step="0.1" min="0"></div>
+      </div>
+      <div class="field"><label>Aides / subventions</label><input type="text" id="s-aides" placeholder="ACRE, subvention mairie…"></div>
+      <div class="sep">Charges fixes annuelles</div>
+      <div class="grid2">
+        <div class="field"><label>Loyer (€/an)</label><input type="number" id="s-loyer" placeholder="7200" min="0"></div>
+        <div class="field"><label>Assurances (€/an)</label><input type="number" id="s-assurance" placeholder="1700" min="0"></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>Tél / Internet (€/an)</label><input type="number" id="s-tel" placeholder="1200" min="0"></div>
+        <div class="field"><label>Expert-comptable (€/an)</label><input type="number" id="s-compta" placeholder="1700" min="0"></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>Pub / communication (€/an)</label><input type="number" id="s-pub" placeholder="2000" min="0"></div>
+        <div class="field"><label>Autres charges (€/an)</label><input type="number" id="s-autresCharges" placeholder="1000" min="0"></div>
+      </div>
+      <div class="sep">Chiffre d'affaires</div>
+      <div class="grid2">
+        <div class="field"><label>CA An 1 (€) <span class="req">*</span></label><input type="number" id="s-ca1" placeholder="126000" min="0"></div>
+        <div class="field"><label>Croissance An 2 / An 3</label><input type="text" id="s-croissance" placeholder="+10% / +10%"></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>Charges variables (% CA)</label><input type="number" id="s-cvPct" placeholder="21" min="0" max="100"></div>
+        <div class="field"><label>Rémunération dirigeant (€/mois)</label><input type="number" id="s-salaire" placeholder="2000" min="0"></div>
+      </div>
+      <div class="field"><label>Salariés prévus</label><input type="text" id="s-salaries" placeholder="Ex : 1 employé 1 800 €/mois dès An 2, ou Aucun"></div>
+      <div class="err-msg" id="err-s5">Merci de renseigner l'apport et le CA.</div>
+      <div class="step-nav"><button class="btn-bk" onclick="sPrev(5)">← Retour</button><button class="btn-fw" onclick="sNext(5)">Continuer →</button></div>
+    </div>
+    <!-- STEP S6 -->
+    <div class="step-form" id="s-step-6">
+      <h3 class="step-h">Dernières précisions</h3>
+      <p class="step-p">Pour enrichir la narration et l'analyse stratégique.</p>
+      <div class="field"><label>Stratégie d'acquisition clients</label><textarea id="s-strategie" placeholder="Comment allez-vous trouver vos clients ? Réseaux sociaux, B2B, partenariats…"></textarea></div>
+      <div class="field"><label>Risques & réponses prévues</label><textarea id="s-risques" placeholder="Principaux risques et comment vous comptez les gérer."></textarea></div>
+      <div class="field"><label>Informations complémentaires</label><textarea id="s-extras" placeholder="Partenariats, local identifié, propriété intellectuelle…" style="min-height:80px"></textarea></div>
+      <div class="field"><label>Destinataire précis</label><input type="text" id="s-destinataireNom" placeholder="Ex : Crédit Agricole, BPI France…"></div>
+      <div class="step-nav">
+        <button class="btn-bk" onclick="sPrev(6)">← Retour</button>
+        <button class="btn-fw" onclick="sGoPayment('simple')">Voir le récapitulatif →</button>
       </div>
     </div>
-    <div class="field-row">
-      <div class="field"><label>Prénom <span class="req">*</span></label><input type="text" id="f-prenom" placeholder="Marie"></div>
-      <div class="field"><label>Nom <span class="req">*</span></label><input type="text" id="f-nom" placeholder="Dupont"></div>
-    </div>
-    <div class="field"><label>Email <span class="req">*</span> <span style="font-size:12px;color:var(--ink3);font-weight:400">(le business plan sera envoyé ici)</span></label><input type="email" id="f-email" placeholder="marie@exemple.fr"></div>
-    <div class="field"><label>Votre parcours professionnel <span class="req">*</span></label><textarea id="f-parcours" placeholder="Vos expériences, formations et compétences clés en lien avec ce projet."></textarea></div>
-    <div class="err" id="err-1">Veuillez remplir tous les champs obligatoires et sélectionner un destinataire.</div>
-    <div class="step-nav"><span></span><button class="btn-next" onclick="next(1)">Continuer →</button></div>
-  </div>
-
-  <!-- STEP 2 -->
-  <div class="step" id="step-2">
-    <h3 class="step-title">Votre projet</h3>
-    <p class="step-sub">Plus vous êtes précis, plus le business plan sera personnalisé et convaincant.</p>
-    <div class="field-row">
-      <div class="field"><label>Nom du projet / entreprise <span class="req">*</span></label><input type="text" id="f-nomProjet" placeholder="Ex : Studio Makonda"></div>
-      <div class="field"><label>Secteur d'activité <span class="req">*</span></label>
-        <select id="f-secteur">
-          <option value="">Choisir…</option>
-          <option>Restauration / Food</option><option>Commerce / Retail</option>
-          <option>Services aux entreprises</option><option>Services aux particuliers</option>
-          <option>Tech / SaaS / Digital</option><option>Artisanat / Métiers manuels</option>
-          <option>Santé / Bien-être</option><option>Éducation / Formation</option>
-          <option>Culture / Événementiel / Musique</option><option>Immobilier</option>
-          <option>Association / ESS</option><option>Autre</option>
-        </select>
-      </div>
-    </div>
-    <div class="field-row">
-      <div class="field"><label>Forme juridique <span class="req">*</span></label>
-        <select id="f-juridique">
-          <option value="">Choisir…</option>
-          <option>Auto-entrepreneur</option><option>EURL</option><option>SARL</option>
-          <option>SAS / SASU</option><option>SA</option><option>Association loi 1901</option>
-          <option>SCOP / SCIC</option><option>Pas encore décidé</option>
-        </select>
-      </div>
-      <div class="field"><label>Ville / Région <span class="req">*</span></label><input type="text" id="f-ville" placeholder="Paris, Lyon, Bordeaux…"></div>
-    </div>
-    <div class="field"><label>Description complète du projet <span class="req">*</span></label><textarea id="f-description" style="min-height:120px" placeholder="Décrivez votre activité, votre offre, le problème résolu, votre modèle économique, la clientèle visée…"></textarea></div>
-    <div class="field-row">
-      <div class="field"><label>Date de lancement prévue</label><input type="text" id="f-lancement" placeholder="Ex : Juillet 2025"></div>
-      <div class="field"><label>Type d'activité</label>
-        <select id="f-typeActivite">
-          <option value="">Choisir…</option>
-          <option>Création ex nihilo</option><option>Reprise d'entreprise</option>
-          <option>Franchise</option><option>Extension d'activité</option>
-        </select>
-      </div>
-    </div>
-    <div class="err" id="err-2">Veuillez remplir tous les champs obligatoires.</div>
-    <div class="step-nav"><button class="btn-back" onclick="prev(2)">← Retour</button><button class="btn-next" onclick="next(2)">Continuer →</button></div>
-  </div>
-
-  <!-- STEP 3 -->
-  <div class="step" id="step-3">
-    <h3 class="step-title">Marché &amp; positionnement</h3>
-    <p class="step-sub">Ces infos construisent l'étude de marché et l'analyse concurrentielle.</p>
-    <div class="field"><label>Clients cibles <span class="req">*</span></label><textarea id="f-clients" placeholder="Qui sont vos clients ? Où sont-ils ? Quels sont leurs besoins et leur budget type ?"></textarea></div>
-    <div class="field"><label>Principaux concurrents <span class="req">*</span></label><textarea id="f-concurrents" placeholder="Nommez vos concurrents directs et indirects, leurs points forts et faibles."></textarea></div>
-    <div class="field"><label>Votre avantage concurrentiel <span class="req">*</span></label><textarea id="f-avantage" placeholder="Pourquoi un client vous choisira plutôt qu'un concurrent ? Qu'est-ce qui est difficile à copier ?"></textarea></div>
-    <div class="field"><label>Clients / partenaires confirmés avant lancement</label><input type="text" id="f-clientsConfirmes" placeholder="Ex : 3 contrats signés, réseau de 500 artistes…"><div class="field-hint">Renforce fortement la crédibilité du dossier.</div></div>
-    <div class="err" id="err-3">Veuillez remplir les champs obligatoires.</div>
-    <div class="step-nav"><button class="btn-back" onclick="prev(3)">← Retour</button><button class="btn-next" onclick="next(3)">Continuer →</button></div>
-  </div>
-
-  <!-- STEP 4 -->
-  <div class="step" id="step-4">
-    <h3 class="step-title">Investissements de démarrage</h3>
-    <p class="step-sub">Tout ce dont vous avez besoin avant d'ouvrir. Laissez vide si non applicable.</p>
-    <div class="field-row">
-      <div class="field"><label>Frais d'établissement (€)</label><input type="number" id="f-fraisEtab" placeholder="780" min="0"><div class="field-hint">Création société, frais juridiques</div></div>
-      <div class="field"><label>Matériel / équipements (€)</label><input type="number" id="f-materiel" placeholder="20000" min="0"></div>
-    </div>
-    <div class="field-row">
-      <div class="field"><label>Travaux / aménagements (€)</label><input type="number" id="f-travaux" placeholder="15000" min="0"></div>
-      <div class="field"><label>Mobilier / matériel bureau (€)</label><input type="number" id="f-mobilier" placeholder="2500" min="0"></div>
-    </div>
-    <div class="field-row">
-      <div class="field"><label>Logiciels / formations (€)</label><input type="number" id="f-logiciels" placeholder="500" min="0"></div>
-      <div class="field"><label>Communication / site web (€)</label><input type="number" id="f-comm" placeholder="3000" min="0"></div>
-    </div>
-    <div class="field-row">
-      <div class="field"><label>Stock initial (€)</label><input type="number" id="f-stock" placeholder="0" min="0"></div>
-      <div class="field"><label>Caution / dépôt de garantie (€)</label><input type="number" id="f-caution" placeholder="600" min="0"></div>
-    </div>
-    <div class="field"><label>Trésorerie de départ (€) <span class="req">*</span></label><input type="number" id="f-tresorerie" placeholder="10000" min="0"><div class="field-hint">Réserve pour financer les premiers mois.</div></div>
-    <div class="err" id="err-4">Veuillez indiquer la trésorerie de départ.</div>
-    <div class="step-nav"><button class="btn-back" onclick="prev(4)">← Retour</button><button class="btn-next" onclick="next(4)">Continuer →</button></div>
-  </div>
-
-  <!-- STEP 5 -->
-  <div class="step" id="step-5">
-    <h3 class="step-title">Financement &amp; charges</h3>
-    <p class="step-sub">Ces données construisent le prévisionnel financier complet.</p>
-    <div style="font-size:12px;text-transform:uppercase;letter-spacing:.06em;font-weight:600;color:var(--ink2);margin-bottom:.75rem;padding-left:.75rem;border-left:2px solid var(--gold)">Financement</div>
-    <div class="field-row">
-      <div class="field"><label>Apport personnel (€) <span class="req">*</span></label><input type="number" id="f-apport" placeholder="24000" min="0"></div>
-      <div class="field"><label>Emprunt bancaire demandé (€)</label><input type="number" id="f-emprunt" placeholder="30000" min="0"></div>
-    </div>
-    <div class="field-row">
-      <div class="field"><label>Durée de l'emprunt (mois)</label><input type="number" id="f-duree" placeholder="60" min="0"></div>
-      <div class="field"><label>Taux d'intérêt (%)</label><input type="number" id="f-taux" placeholder="4.5" step="0.1" min="0"></div>
-    </div>
-    <div class="field"><label>Subventions / aides obtenues</label><input type="text" id="f-aides" placeholder="Ex : ACRE, subvention mairie 5 000 €, prêt d'honneur…"></div>
-    <div style="font-size:12px;text-transform:uppercase;letter-spacing:.06em;font-weight:600;color:var(--ink2);margin:1.25rem 0 .75rem;padding-left:.75rem;border-left:2px solid var(--gold)">Charges fixes annuelles</div>
-    <div class="field-row">
-      <div class="field"><label>Loyer annuel (€)</label><input type="number" id="f-loyer" placeholder="7200" min="0"></div>
-      <div class="field"><label>Assurances (€/an)</label><input type="number" id="f-assurance" placeholder="1700" min="0"></div>
-    </div>
-    <div class="field-row">
-      <div class="field"><label>Téléphone / Internet (€/an)</label><input type="number" id="f-tel" placeholder="1200" min="0"></div>
-      <div class="field"><label>Expert-comptable (€/an)</label><input type="number" id="f-compta" placeholder="1700" min="0"></div>
-    </div>
-    <div class="field-row">
-      <div class="field"><label>Budget com / pub (€/an)</label><input type="number" id="f-pub" placeholder="2000" min="0"></div>
-      <div class="field"><label>Autres charges fixes (€/an)</label><input type="number" id="f-autresCharges" placeholder="1000" min="0"><div class="field-hint">CFE, frais bancaires, abonnements…</div></div>
-    </div>
-    <div style="font-size:12px;text-transform:uppercase;letter-spacing:.06em;font-weight:600;color:var(--ink2);margin:1.25rem 0 .75rem;padding-left:.75rem;border-left:2px solid var(--gold)">Chiffre d'affaires &amp; charges variables</div>
-    <div class="field-row">
-      <div class="field"><label>CA prévisionnel Année 1 (€) <span class="req">*</span></label><input type="number" id="f-ca1" placeholder="126000" min="0"></div>
-      <div class="field"><label>Taux de croissance An 2 / An 3</label><input type="text" id="f-croissance" placeholder="Ex : +10% / +10%"></div>
-    </div>
-    <div class="field-row">
-      <div class="field"><label>Charges variables (% du CA)</label><input type="number" id="f-cvPct" placeholder="21" min="0" max="100"><div class="field-hint">Matières premières, commissions, sous-traitance…</div></div>
-      <div class="field"><label>Rémunération dirigeant (€/mois net)</label><input type="number" id="f-salaire" placeholder="2000" min="0"></div>
-    </div>
-    <div class="field"><label>Salariés prévus</label><input type="text" id="f-salaries" placeholder="Ex : 1 employé à 1 800 €/mois net à partir de l'An 2, ou Aucun"></div>
-    <div class="err" id="err-5">Veuillez renseigner l'apport personnel et le CA prévisionnel.</div>
-    <div class="step-nav"><button class="btn-back" onclick="prev(5)">← Retour</button><button class="btn-next" onclick="next(5)">Continuer →</button></div>
-  </div>
-
-  <!-- STEP 6 -->
-  <div class="step" id="step-6">
-    <h3 class="step-title">Dernières précisions</h3>
-    <p class="step-sub">Ces informations enrichissent la narration et l'analyse stratégique.</p>
-    <div class="field"><label>Stratégie commerciale &amp; canaux d'acquisition</label><textarea id="f-strategie" placeholder="Comment allez-vous trouver vos clients ? Réseaux sociaux, bouche à oreille, B2B direct, partenariats…"></textarea></div>
-    <div class="field"><label>Risques identifiés &amp; réponses prévues</label><textarea id="f-risques" placeholder="Quels sont les principaux risques et comment comptez-vous les atténuer ?"></textarea></div>
-    <div class="field"><label>Informations complémentaires</label><textarea id="f-extras" placeholder="Partenariats signés, propriété intellectuelle, local identifié, éléments différenciants…" style="min-height:80px"></textarea></div>
-    <div class="field"><label>Destinataire spécifique</label><input type="text" id="f-destinataireNom" placeholder="Ex : BPI France, Crédit Agricole, Région Île-de-France…"><div class="field-hint">Optionnel — permet de personnaliser davantage le document.</div></div>
-    <div class="err" id="err-6"></div>
-    <div class="step-nav">
-      <button class="btn-back" onclick="prev(6)">← Retour</button>
-      <button class="btn-next" style="background:var(--gold);color:var(--ink);font-weight:700" onclick="goToPayment()">Continuer vers le paiement →</button>
-    </div>
-  </div>
-
-</div><!-- /form-wrap -->
-</div><!-- /screen-form -->
-
-<!-- ═══════════ SCREEN PAYMENT ═══════════ -->
-<div id="screen-payment" class="screen">
-  <div class="payment-card">
-    <div class="payment-icon">💳</div>
-    <div class="payment-title">Récapitulatif de commande</div>
-    <div class="payment-sub">Vérifiez vos informations avant de payer</div>
-    <div class="payment-recap">
-      <div class="recap-row"><span>Projet</span><strong id="recap-projet">—</strong></div>
-      <div class="recap-row"><span>Porteur</span><span id="recap-porteur">—</span></div>
-      <div class="recap-row"><span>Email de livraison</span><span id="recap-email" style="color:var(--gold)">—</span></div>
-      <div class="recap-row"><span>Destinataire</span><span id="recap-dest">—</span></div>
-      <div class="recap-row total">
-        <span>Business Plan Professionnel IA</span>
-        <strong>100,00 €</strong>
-      </div>
-    </div>
-    <button class="btn-pay" id="btn-pay" onclick="launchStripe()">
-      🔒 Payer 100 € et recevoir mon business plan
-    </button>
-    <div class="payment-secure">🔒 Paiement sécurisé par Stripe · Données cryptées SSL</div>
-    <div class="payment-err" id="payment-err">Une erreur est survenue. Veuillez réessayer.</div>
-    <p style="margin-top:1.25rem;font-size:12px;color:var(--ink3);text-align:center">
-      Satisfait ou remboursé sous 24h · Livraison par email en moins de 5 minutes
-    </p>
   </div>
 </div>
 
-<!-- ═══════════ SCREEN SUCCESS ═══════════ -->
-<div id="screen-success" class="screen">
+<!-- ═══ FORMULAIRE PREMIUM ═══════════════════════════════ -->
+<div id="screen-premium" class="screen form-screen">
+  <div class="form-bar">
+    <button class="form-back" onclick="showHome()">← Retour</button>
+    <div class="prog-wrap">
+      <div class="prog-labels">
+        <span id="prog-p-step">Étape 1 / 6</span>
+        <span id="prog-p-name">Destinataire & Profil</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill prog-fill-gold" id="prog-p-fill" style="width:16%"></div></div>
+    </div>
+  </div>
+  <div class="form-content">
+    <!-- Badge premium -->
+    <div style="background:var(--goldl);border:1px solid var(--goldr);border-radius:var(--r);padding:.75rem 1rem;margin-bottom:1.5rem;font-size:13px;color:#8B6914;display:flex;align-items:center;gap:8px">
+      <span>⭐</span> <span><strong>Pack Premium 200 €</strong> — Excel financier + PDF Présentation + PDF Étude de marché</span>
+    </div>
+    <!-- STEP P1 -->
+    <div class="step-form active" id="p-step-1">
+      <h3 class="step-h">Pour qui est ce dossier ?</h3>
+      <p class="step-p">Le contenu des 3 livrables s'adapte selon le destinataire.</p>
+      <div class="radio-group">
+        <label class="r-card" onclick="pick(this,'pdest','banque')"><input type="radio" name="pdest" value="banque"><div><div class="r-icon">🏦</div><div class="r-label">Banque / Crédit</div><div class="r-sub">BPI, CIC, Crédit Agricole…</div></div></label>
+        <label class="r-card" onclick="pick(this,'pdest','investisseur')"><input type="radio" name="pdest" value="investisseur"><div><div class="r-icon">📈</div><div class="r-label">Investisseur</div><div class="r-sub">Business angel, fonds…</div></div></label>
+        <label class="r-card" onclick="pick(this,'pdest','subvention')"><input type="radio" name="pdest" value="subvention"><div><div class="r-icon">🏛️</div><div class="r-label">Subvention</div><div class="r-sub">Région, mairie, fondation…</div></div></label>
+        <label class="r-card" onclick="pick(this,'pdest','personnel')"><input type="radio" name="pdest" value="personnel"><div><div class="r-icon">📋</div><div class="r-label">Usage personnel</div><div class="r-sub">Comptable, structurer…</div></div></label>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>Prénom <span class="req">*</span></label><input type="text" id="p-prenom" placeholder="Marie"></div>
+        <div class="field"><label>Nom <span class="req">*</span></label><input type="text" id="p-nom" placeholder="Dupont"></div>
+      </div>
+      <div class="field"><label>Email de livraison <span class="req">*</span></label><input type="email" id="p-email" placeholder="marie@exemple.fr"><div class="field-hint">Vos 3 documents seront envoyés à cette adresse.</div></div>
+      <div class="field"><label>Votre parcours <span class="req">*</span></label><textarea id="p-parcours" placeholder="Vos expériences, formations et compétences clés."></textarea></div>
+      <div class="err-msg" id="err-p1">Merci de remplir tous les champs et choisir un destinataire.</div>
+      <div class="step-nav"><button class="btn-fw gold-btn" onclick="pNext(1)">Continuer →</button></div>
+    </div>
+    <!-- STEP P2 -->
+    <div class="step-form" id="p-step-2">
+      <h3 class="step-h">Votre projet</h3>
+      <p class="step-p">Ces informations alimentent les 3 livrables. Soyez précis.</p>
+      <div class="grid2">
+        <div class="field"><label>Nom du projet <span class="req">*</span></label><input type="text" id="p-nomProjet" placeholder="Restaurant Le Jardin"></div>
+        <div class="field"><label>Secteur <span class="req">*</span></label>
+          <select id="p-secteur"><option value="">Choisir…</option><option>Restauration / Food</option><option>Commerce / Retail</option><option>Services aux entreprises</option><option>Services aux particuliers</option><option>Tech / SaaS / Digital</option><option>Artisanat / Métiers manuels</option><option>Santé / Bien-être</option><option>Éducation / Formation</option><option>Culture / Événementiel / Musique</option><option>Immobilier</option><option>Association / ESS</option><option>Autre</option></select>
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>Forme juridique <span class="req">*</span></label>
+          <select id="p-juridique"><option value="">Choisir…</option><option>Auto-entrepreneur</option><option>EURL</option><option>SARL</option><option>SAS / SASU</option><option>SA</option><option>Association loi 1901</option><option>SCOP / SCIC</option><option>Pas encore décidé</option></select>
+        </div>
+        <div class="field"><label>Ville <span class="req">*</span></label><input type="text" id="p-ville" placeholder="Lyon, Paris…"></div>
+      </div>
+      <div class="field"><label>Description complète du projet <span class="req">*</span></label><textarea id="p-description" style="min-height:120px" placeholder="Votre activité, votre offre, votre modèle économique, le problème résolu…"></textarea></div>
+      <div class="field"><label>Vision et histoire du projet <span class="req">*</span></label><textarea id="p-vision" placeholder="Pourquoi ce projet ? Quelle est votre vision à 5 ans ? Quelle histoire voulez-vous raconter ?"></textarea></div>
+      <div class="grid2">
+        <div class="field"><label>Lancement prévu</label><input type="text" id="p-lancement" placeholder="Septembre 2025"></div>
+        <div class="field"><label>Type de projet</label>
+          <select id="p-typeActivite"><option value="">Choisir…</option><option>Création ex nihilo</option><option>Reprise d'entreprise</option><option>Franchise</option><option>Extension d'activité</option></select>
+        </div>
+      </div>
+      <div class="err-msg" id="err-p2">Merci de remplir tous les champs obligatoires.</div>
+      <div class="step-nav"><button class="btn-bk" onclick="pPrev(2)">← Retour</button><button class="btn-fw gold-btn" onclick="pNext(2)">Continuer →</button></div>
+    </div>
+    <!-- STEP P3 -->
+    <div class="step-form" id="p-step-3">
+      <h3 class="step-h">Marché, concurrence & stratégie</h3>
+      <p class="step-p">Ces informations alimentent l'étude de marché et la stratégie.</p>
+      <div class="field"><label>Clients cibles <span class="req">*</span></label><textarea id="p-clients" placeholder="Qui sont-ils ? Âge, profession, zone géographique, budget, problème résolu ?"></textarea></div>
+      <div class="field"><label>Concurrents <span class="req">*</span></label><textarea id="p-concurrents" placeholder="Nommez vos concurrents directs et indirects. Leurs forces et faiblesses."></textarea></div>
+      <div class="field"><label>Votre différenciation <span class="req">*</span></label><textarea id="p-avantage" placeholder="Qu'est-ce qui vous différencie ? Pourquoi vous choisirait-on ?"></textarea></div>
+      <div class="field"><label>Stratégie commerciale & marketing <span class="req">*</span></label><textarea id="p-strategie" placeholder="Comment allez-vous acquérir vos clients ? Réseaux sociaux, B2B, partenariats, SEO, publicité…"></textarea></div>
+      <div class="field"><label>Clients / partenaires confirmés</label><input type="text" id="p-clientsConfirmes" placeholder="Ex : 3 contrats signés, partenariats distributeurs…"></div>
+      <div class="err-msg" id="err-p3">Merci de remplir les champs obligatoires.</div>
+      <div class="step-nav"><button class="btn-bk" onclick="pPrev(3)">← Retour</button><button class="btn-fw gold-btn" onclick="pNext(3)">Continuer →</button></div>
+    </div>
+    <!-- STEP P4 -->
+    <div class="step-form" id="p-step-4">
+      <h3 class="step-h">Investissements</h3>
+      <p class="step-p">Alimente le fichier Excel financier. Laissez vide si non applicable.</p>
+      <div class="grid2">
+        <div class="field"><label>Frais d'établissement (€)</label><input type="number" id="p-fraisEtab" placeholder="780" min="0"></div>
+        <div class="field"><label>Matériel / équipements (€)</label><input type="number" id="p-materiel" placeholder="20000" min="0"></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>Travaux (€)</label><input type="number" id="p-travaux" placeholder="15000" min="0"></div>
+        <div class="field"><label>Mobilier / bureau (€)</label><input type="number" id="p-mobilier" placeholder="2500" min="0"></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>Logiciels / formations (€)</label><input type="number" id="p-logiciels" placeholder="500" min="0"></div>
+        <div class="field"><label>Communication (€)</label><input type="number" id="p-comm" placeholder="3000" min="0"></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>Stock initial (€)</label><input type="number" id="p-stock" placeholder="0" min="0"></div>
+        <div class="field"><label>Caution (€)</label><input type="number" id="p-caution" placeholder="600" min="0"></div>
+      </div>
+      <div class="field"><label>Trésorerie de départ (€) <span class="req">*</span></label><input type="number" id="p-tresorerie" placeholder="10000" min="0"></div>
+      <div class="err-msg" id="err-p4">Merci d'indiquer la trésorerie de départ.</div>
+      <div class="step-nav"><button class="btn-bk" onclick="pPrev(4)">← Retour</button><button class="btn-fw gold-btn" onclick="pNext(4)">Continuer →</button></div>
+    </div>
+    <!-- STEP P5 -->
+    <div class="step-form" id="p-step-5">
+      <h3 class="step-h">Financement & chiffres clés</h3>
+      <p class="step-p">Données pour le fichier Excel financier complet.</p>
+      <div class="sep">Financement</div>
+      <div class="grid2">
+        <div class="field"><label>Apport personnel (€) <span class="req">*</span></label><input type="number" id="p-apport" placeholder="24000" min="0"></div>
+        <div class="field"><label>Emprunt demandé (€)</label><input type="number" id="p-emprunt" placeholder="30000" min="0"></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>Durée (mois)</label><input type="number" id="p-duree" placeholder="60" min="0"></div>
+        <div class="field"><label>Taux (%)</label><input type="number" id="p-taux" placeholder="4.5" step="0.1" min="0"></div>
+      </div>
+      <div class="field"><label>Aides / subventions</label><input type="text" id="p-aides" placeholder="ACRE, subvention mairie…"></div>
+      <div class="sep">Charges fixes annuelles</div>
+      <div class="grid2">
+        <div class="field"><label>Loyer (€/an)</label><input type="number" id="p-loyer" placeholder="7200" min="0"></div>
+        <div class="field"><label>Assurances (€/an)</label><input type="number" id="p-assurance" placeholder="1700" min="0"></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>Tél / Internet (€/an)</label><input type="number" id="p-tel" placeholder="1200" min="0"></div>
+        <div class="field"><label>Expert-comptable (€/an)</label><input type="number" id="p-compta" placeholder="1700" min="0"></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>Pub / communication (€/an)</label><input type="number" id="p-pub" placeholder="2000" min="0"></div>
+        <div class="field"><label>Autres charges (€/an)</label><input type="number" id="p-autresCharges" placeholder="1000" min="0"></div>
+      </div>
+      <div class="sep">Chiffre d'affaires</div>
+      <div class="grid2">
+        <div class="field"><label>CA An 1 (€) <span class="req">*</span></label><input type="number" id="p-ca1" placeholder="126000" min="0"></div>
+        <div class="field"><label>Croissance An 2 / An 3</label><input type="text" id="p-croissance" placeholder="+10% / +10%"></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>Charges variables (% CA)</label><input type="number" id="p-cvPct" placeholder="21" min="0" max="100"></div>
+        <div class="field"><label>Rémunération dirigeant (€/mois)</label><input type="number" id="p-salaire" placeholder="2000" min="0"></div>
+      </div>
+      <div class="field"><label>Salariés prévus</label><input type="text" id="p-salaries" placeholder="Ex : 1 employé 1 800 €/mois dès An 2, ou Aucun"></div>
+      <div class="err-msg" id="err-p5">Merci de renseigner l'apport et le CA.</div>
+      <div class="step-nav"><button class="btn-bk" onclick="pPrev(5)">← Retour</button><button class="btn-fw gold-btn" onclick="pNext(5)">Continuer →</button></div>
+    </div>
+    <!-- STEP P6 -->
+    <div class="step-form" id="p-step-6">
+      <h3 class="step-h">Finitions</h3>
+      <p class="step-p">Ces dernières infos enrichissent les 3 livrables.</p>
+      <div class="field"><label>Risques & mesures correctives</label><textarea id="p-risques" placeholder="Principaux risques identifiés et comment vous comptez les gérer."></textarea></div>
+      <div class="field"><label>Objectifs à court / moyen terme</label><textarea id="p-objectifs" placeholder="Ex : Atteindre 10 clients en An 1, ouvrir un 2e site en An 3…"></textarea></div>
+      <div class="field"><label>Informations complémentaires</label><textarea id="p-extras" placeholder="Partenariats signés, local identifié, propriété intellectuelle…" style="min-height:80px"></textarea></div>
+      <div class="field"><label>Destinataire précis</label><input type="text" id="p-destinataireNom" placeholder="Ex : Crédit Agricole, BPI France, Région IDF…"></div>
+      <div class="step-nav">
+        <button class="btn-bk" onclick="pPrev(6)">← Retour</button>
+        <button class="btn-fw gold-btn" onclick="sGoPayment('premium')">Voir le récapitulatif →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAYMENT ═══════════════════════════════════════ -->
+<div id="screen-payment" class="screen pay-screen">
+  <div class="pay-card">
+    <div id="pay-top" class="pay-top"></div>
+    <div class="pay-body">
+      <div class="pay-recap">
+        <div class="pay-row"><span>Projet</span><strong id="r-projet">—</strong></div>
+        <div class="pay-row"><span>Porteur</span><span id="r-porteur">—</span></div>
+        <div class="pay-row"><span>Email</span><span id="r-email" style="color:var(--green)">—</span></div>
+        <div class="pay-row"><span>Destinataire</span><span id="r-dest">—</span></div>
+        <div class="pay-row"><span>Offre</span><span id="r-offre">—</span></div>
+        <div class="pay-row total"><span id="r-produit">—</span><strong id="r-prix">—</strong></div>
+      </div>
+      <button class="btn-pay" id="btn-pay" onclick="launchStripe()">
+        🔒 Payer et recevoir mes documents
+      </button>
+      <div class="pay-secure">🔒 Paiement sécurisé Stripe · Données chiffrées SSL</div>
+      <div class="pay-err" id="pay-err">Une erreur est survenue, veuillez réessayer.</div>
+      <p class="pay-guarantee">Satisfait ou remboursé sous 24h</p>
+      <button class="btn-pay-back" onclick="goBackToForm()">← Modifier mon dossier</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SUCCESS ═══════════════════════════════════════ -->
+<div id="screen-success" class="screen success-screen">
   <div class="success-icon">✅</div>
-  <h2 class="success-title">Paiement confirmé !</h2>
-  <p class="success-sub">
-    Votre business plan est en cours de génération.<br>
-    Vous le recevrez par email à <span class="success-email" id="success-email">votre adresse</span>
-    dans moins de 5 minutes.
-  </p>
-  <br>
-  <p style="font-size:14px;color:var(--ink3);max-width:380px;line-height:1.7">
-    Vérifiez aussi votre dossier spam si vous ne le recevez pas.<br>
-    Pour toute question : <a href="mailto:contact@plania.fr" style="color:var(--gold)">contact@plania.fr</a>
-  </p>
-  <br><br>
-  <button class="btn-hero" onclick="showHome()" style="font-size:14px;padding:12px 24px">← Retour à l'accueil</button>
+  <h2 class="success-h">Paiement confirmé !</h2>
+  <p class="success-p">Vos documents sont en cours de génération.<br>Vous les recevrez à <span class="success-email" id="s-email-ok">votre adresse</span> dans moins de 5 minutes.</p>
+  <div class="success-items" id="success-items"></div>
+  <button onclick="showHome()" style="background:var(--green);color:#fff;border:none;padding:12px 28px;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:600;cursor:pointer">← Retour à l'accueil</button>
 </div>
 
 <script>
-// ─── STATE ──────────────────────────────────────────────────────────
-let FD = {}; // FormData global
-let cur = 1;
-const STEP_NAMES = ['Destinataire & Profil','Description du projet','Marché & positionnement','Investissements','Financement & Charges','Précisions finales'];
+// ─── STATE ──────────────────────────────────────────
+let FD = {}, curType = 'simple', sCur = 1, pCur = 1;
+const STEP_NAMES = ['Destinataire & Profil','Votre projet','Marché & concurrence','Investissements','Financement & charges','Précisions finales'];
 const DEST_LABELS = {banque:'Banque / Organisme de crédit',investisseur:'Investisseur / Levée de fonds',subvention:'Subvention / Association',personnel:'Usage personnel'};
 
-// ─── SCREEN NAVIGATION ──────────────────────────────────────────────
-function show(id) {
-  document.querySelectorAll('.screen').forEach(s => { s.style.display='none'; s.classList.remove('active'); });
-  const el = document.getElementById(id);
-  el.style.display = el.id === 'screen-home' ? 'block' :
-    ['screen-payment','screen-success'].includes(el.id) ? 'flex' :
-    el.id === 'screen-form' ? 'block' : 'block';
-  el.classList.add('active');
+// ─── SCREENS ────────────────────────────────────────
+function showHome(){
+  document.querySelectorAll('.screen').forEach(s=>{s.style.display='none';s.classList.remove('active')});
+  const el=document.getElementById('screen-home');
+  el.style.display='block';el.classList.add('active');
   window.scrollTo(0,0);
 }
-function showHome() { show('screen-home'); }
-function startForm() { show('screen-form'); resetForm(); }
-
-function resetForm() {
-  cur = 1;
-  document.querySelectorAll('.step').forEach((s,i) => s.classList.toggle('active', i===0));
-  updateProg();
-  FD = {};
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>{s.style.display='none';s.classList.remove('active')});
+  const el=document.getElementById(id);
+  el.style.display='block';el.classList.add('active');
+  window.scrollTo(0,0);
+}
+function startForm(type){
+  curType=type;FD={};FD.offre=type;
+  sCur=1;pCur=1;
+  if(type==='simple'){
+    document.querySelectorAll('.step-form[id^="s-"]').forEach((s,i)=>s.classList.toggle('active',i===0));
+    updateProg('s',1);
+    showScreen('screen-simple');
+  } else {
+    document.querySelectorAll('.step-form[id^="p-"]').forEach((s,i)=>s.classList.toggle('active',i===0));
+    updateProg('p',1);
+    showScreen('screen-premium');
+  }
+}
+function goBackToForm(){
+  showScreen(curType==='simple'?'screen-simple':'screen-premium');
 }
 
-// ─── FORM RADIO ─────────────────────────────────────────────────────
-function pick(el, name, value) {
-  document.querySelectorAll(`.radio-card input[name="${name}"]`).forEach(i => i.closest('.radio-card').classList.remove('selected'));
-  el.classList.add('selected');
-  FD[name] = value;
+// ─── RADIO ──────────────────────────────────────────
+function pick(el,name,val){
+  document.querySelectorAll(`.r-card input[name="${name}"]`).forEach(i=>i.closest('.r-card').classList.remove('sel'));
+  el.classList.add('sel');
+  FD[name.replace('sdest','dest').replace('pdest','dest')]=val;
 }
 
-// ─── PROGRESS ───────────────────────────────────────────────────────
-function updateProg() {
-  const pct = Math.round(cur / 6 * 100);
-  document.getElementById('prog-fill').style.width = pct + '%';
-  document.getElementById('prog-text').textContent = `Étape ${cur} / 6`;
-  document.getElementById('prog-name').textContent = STEP_NAMES[cur-1];
+// ─── PROGRESS ───────────────────────────────────────
+function updateProg(prefix,n){
+  const pct=Math.round(n/6*100);
+  document.getElementById(`prog-${prefix}-fill`).style.width=pct+'%';
+  document.getElementById(`prog-${prefix}-step`).textContent=`Étape ${n} / 6`;
+  document.getElementById(`prog-${prefix}-name`).textContent=STEP_NAMES[n-1];
 }
 
-// ─── COLLECT ────────────────────────────────────────────────────────
-const FIELDS = {
-  1: ['prenom','nom','email','parcours'],
-  2: ['nomProjet','secteur','juridique','ville','description','lancement','typeActivite'],
-  3: ['clients','concurrents','avantage','clientsConfirmes'],
-  4: ['fraisEtab','materiel','travaux','mobilier','logiciels','comm','stock','caution','tresorerie'],
-  5: ['apport','emprunt','duree','taux','aides','loyer','assurance','tel','compta','pub','autresCharges','ca1','croissance','cvPct','salaire','salaries'],
-  6: ['strategie','risques','extras','destinataireNom'],
-};
-function collect(n) {
-  (FIELDS[n]||[]).forEach(k => {
-    const el = document.getElementById(`f-${k}`);
-    if (el) FD[k] = el.value.trim();
+// ─── COLLECT ────────────────────────────────────────
+const S_FIELDS={1:['prenom','nom','email','parcours'],2:['nomProjet','secteur','juridique','ville','description','lancement','typeActivite'],3:['clients','concurrents','avantage','clientsConfirmes'],4:['fraisEtab','materiel','travaux','mobilier','logiciels','comm','stock','caution','tresorerie'],5:['apport','emprunt','duree','taux','aides','loyer','assurance','tel','compta','pub','autresCharges','ca1','croissance','cvPct','salaire','salaries'],6:['strategie','risques','extras','destinataireNom']};
+const P_FIELDS={1:['prenom','nom','email','parcours'],2:['nomProjet','secteur','juridique','ville','description','vision','lancement','typeActivite'],3:['clients','concurrents','avantage','strategie','clientsConfirmes'],4:['fraisEtab','materiel','travaux','mobilier','logiciels','comm','stock','caution','tresorerie'],5:['apport','emprunt','duree','taux','aides','loyer','assurance','tel','compta','pub','autresCharges','ca1','croissance','cvPct','salaire','salaries'],6:['risques','objectifs','extras','destinataireNom']};
+
+function collectStep(prefix,n){
+  const fields=prefix==='s'?S_FIELDS[n]:P_FIELDS[n];
+  (fields||[]).forEach(k=>{
+    const el=document.getElementById(`${prefix}-${k}`);
+    if(el)FD[k]=el.value.trim();
   });
 }
+function v(prefix,k){const e=document.getElementById(`${prefix}-${k}`);return e&&e.value.trim()!=='';}
 
-// ─── VALIDATE ───────────────────────────────────────────────────────
-function validate(n) {
-  const err = document.getElementById(`err-${n}`);
-  if (err) err.style.display = 'none';
-  const v = id => { const e = document.getElementById(`f-${id}`); return e && e.value.trim() !== ''; };
-  const ok = {
-    1: () => FD.destinataire && v('prenom') && v('nom') && v('email') && v('parcours'),
-    2: () => v('nomProjet') && v('secteur') && v('juridique') && v('ville') && v('description'),
-    3: () => v('clients') && v('concurrents') && v('avantage'),
-    4: () => v('tresorerie'),
-    5: () => v('apport') && v('ca1'),
-    6: () => true,
-  }[n]?.();
-  if (!ok && err) err.style.display = 'block';
+// ─── VALIDATE ───────────────────────────────────────
+function validateStep(prefix,n){
+  const err=document.getElementById(`err-${prefix}${n}`);
+  if(err)err.style.display='none';
+  const ok=({
+    1:()=>FD.dest&&v(prefix,'prenom')&&v(prefix,'nom')&&v(prefix,'email')&&v(prefix,'parcours'),
+    2:()=>v(prefix,'nomProjet')&&v(prefix,'secteur')&&v(prefix,'juridique')&&v(prefix,'ville')&&v(prefix,'description')&&(prefix==='s'||v(prefix,'vision')),
+    3:()=>v(prefix,'clients')&&v(prefix,'concurrents')&&v(prefix,'avantage')&&(prefix==='s'||v(prefix,'strategie')),
+    4:()=>v(prefix,'tresorerie'),
+    5:()=>v(prefix,'apport')&&v(prefix,'ca1'),
+    6:()=>true,
+  })[n]?.();
+  if(!ok&&err)err.style.display='block';
   return ok;
 }
 
-// ─── STEP NAV ───────────────────────────────────────────────────────
-function next(n) {
-  if (!validate(n)) return;
-  collect(n);
-  document.getElementById(`step-${n}`).classList.remove('active');
-  document.getElementById(`step-${n+1}`).classList.add('active');
-  cur = n + 1;
-  updateProg();
-  window.scrollTo(0,0);
+// ─── SIMPLE NAV ─────────────────────────────────────
+function sNext(n){
+  if(!validateStep('s',n))return;
+  collectStep('s',n);
+  document.getElementById(`s-step-${n}`).classList.remove('active');
+  document.getElementById(`s-step-${n+1}`).classList.add('active');
+  sCur=n+1;updateProg('s',sCur);window.scrollTo(0,0);
 }
-function prev(n) {
-  document.getElementById(`step-${n}`).classList.remove('active');
-  document.getElementById(`step-${n-1}`).classList.add('active');
-  cur = n - 1;
-  updateProg();
-  window.scrollTo(0,0);
+function sPrev(n){
+  document.getElementById(`s-step-${n}`).classList.remove('active');
+  document.getElementById(`s-step-${n-1}`).classList.add('active');
+  sCur=n-1;updateProg('s',sCur);window.scrollTo(0,0);
 }
 
-// ─── GO TO PAYMENT ───────────────────────────────────────────────────
-function goToPayment() {
-  collect(6);
-  // Mettre à jour le récap
-  document.getElementById('recap-projet').textContent = FD.nomProjet || '—';
-  document.getElementById('recap-porteur').textContent = `${FD.prenom||''} ${FD.nom||''}`.trim() || '—';
-  document.getElementById('recap-email').textContent = FD.email || '—';
-  document.getElementById('recap-dest').textContent = DEST_LABELS[FD.destinataire] || '—';
-  document.getElementById('success-email').textContent = FD.email || 'votre adresse';
-  show('screen-payment');
+// ─── PREMIUM NAV ────────────────────────────────────
+function pNext(n){
+  if(!validateStep('p',n))return;
+  collectStep('p',n);
+  document.getElementById(`p-step-${n}`).classList.remove('active');
+  document.getElementById(`p-step-${n+1}`).classList.add('active');
+  pCur=n+1;updateProg('p',pCur);window.scrollTo(0,0);
+}
+function pPrev(n){
+  document.getElementById(`p-step-${n}`).classList.remove('active');
+  document.getElementById(`p-step-${n-1}`).classList.add('active');
+  pCur=n-1;updateProg('p',pCur);window.scrollTo(0,0);
 }
 
-// ─── STRIPE CHECKOUT ────────────────────────────────────────────────
-async function launchStripe() {
-  const btn = document.getElementById('btn-pay');
-  const errEl = document.getElementById('payment-err');
-  btn.disabled = true;
-  btn.textContent = '⏳ Redirection vers le paiement…';
-  errEl.style.display = 'none';
+// ─── GO TO PAYMENT ───────────────────────────────────
+function sGoPayment(type){
+  const prefix=type==='simple'?'s':'p';
+  const n=type==='simple'?6:6;
+  collectStep(prefix,n);
+  FD.offre=type;
 
-  try {
-    const response = await fetch('/api/create-checkout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(FD),
-    });
+  const isPrem=type==='premium';
+  document.getElementById('pay-top').className='pay-top '+(isPrem?'pay-top-premium':'pay-top-simple');
+  document.getElementById('pay-top').innerHTML=`<h2>${isPrem?'⭐ Pack Premium':'Business Plan Simple'}</h2><p>${isPrem?'Excel + 2 PDF professionnels':'1 PDF business plan complet'}</p>`;
 
-    const data = await response.json();
+  document.getElementById('r-projet').textContent=FD.nomProjet||'—';
+  document.getElementById('r-porteur').textContent=`${FD.prenom||''} ${FD.nom||''}`.trim()||'—';
+  document.getElementById('r-email').textContent=FD.email||'—';
+  document.getElementById('r-dest').textContent=DEST_LABELS[FD.dest]||'—';
+  document.getElementById('r-offre').textContent=isPrem?'Pack Premium':'Business Plan Simple';
+  document.getElementById('r-produit').textContent=isPrem?'Pack Premium (Excel + 2 PDF)':'Business Plan Professionnel (1 PDF)';
+  document.getElementById('r-prix').textContent=isPrem?'200,00 €':'100,00 €';
 
-    if (data.url) {
-      // Redirection vers Stripe Checkout
-      window.location.href = data.url;
-    } else {
-      throw new Error(data.error || 'Erreur inconnue');
-    }
-  } catch (err) {
-    console.error(err);
-    errEl.textContent = `Erreur : ${err.message}. Veuillez réessayer.`;
-    errEl.style.display = 'block';
-    btn.disabled = false;
-    btn.innerHTML = '🔒 Payer 100 € et recevoir mon business plan';
+  const btn=document.getElementById('btn-pay');
+  btn.className='btn-pay '+(isPrem?'btn-pay-premium':'btn-pay-simple');
+
+  document.getElementById('s-email-ok').textContent=FD.email||'votre adresse';
+  document.getElementById('success-items').innerHTML=isPrem
+    ?'<div class="si">Fichier Excel financier (.xlsx)</div><div class="si">PDF Présentation du projet</div><div class="si">PDF Étude de marché & stratégie</div>'
+    :'<div class="si">Business plan complet en PDF</div><div class="si">8 sections rédigées et chiffrées</div><div class="si">Prévisionnel financier 3 ans</div>';
+
+  showScreen('screen-payment');
+}
+
+// ─── STRIPE ──────────────────────────────────────────
+async function launchStripe(){
+  const btn=document.getElementById('btn-pay');
+  const errEl=document.getElementById('pay-err');
+  btn.disabled=true;btn.innerHTML='⏳ Redirection…';errEl.style.display='none';
+  try{
+    const res=await fetch('/api/create-checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(FD)});
+    const data=await res.json();
+    if(data.url)window.location.href=data.url;
+    else throw new Error(data.error||'Erreur inconnue');
+  }catch(err){
+    errEl.textContent=`Erreur : ${err.message}`;errEl.style.display='block';
+    btn.disabled=false;btn.innerHTML='🔒 Payer et recevoir mes documents';
   }
 }
 
-// ─── FAQ TOGGLE ──────────────────────────────────────────────────────
-function toggleFaq(el) {
-  const item = el.closest('.faq-item');
-  const isOpen = item.classList.contains('open');
-  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-  if (!isOpen) item.classList.add('open');
+// ─── FAQ ─────────────────────────────────────────────
+function faq(btn){
+  const item=btn.closest('.faq-item');
+  const open=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+  if(!open)item.classList.add('open');
 }
 
-// ─── CHECK SUCCESS URL ───────────────────────────────────────────────
-// Stripe redirige vers /success.html?session_id=xxx
-// On vérifie si on est sur cette page et on affiche l'écran de succès
-if (window.location.search.includes('session_id')) {
-  show('screen-success');
-}
-if (window.location.pathname.includes('cancel')) {
-  show('screen-home');
+// ─── SUCCESS CHECK ───────────────────────────────────
+if(window.location.search.includes('session_id')){
+  document.addEventListener('DOMContentLoaded',()=>showScreen('screen-success'));
 }
 </script>
 </body>
