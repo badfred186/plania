@@ -20,6 +20,8 @@ async function getRawBody(req) {
 async function htmlToPDF(htmlContent, filename) {
   try {
     const apiKey = process.env.PDFCO_API_KEY;
+
+    // Étape 1 : Upload le fichier HTML
     const uploadRes = await fetch('https://api.pdf.co/v1/file/upload/base64', {
       method: 'POST',
       headers: { 'x-api-key': apiKey, 'Content-Type': 'application/json' },
@@ -29,19 +31,37 @@ async function htmlToPDF(htmlContent, filename) {
       }),
     });
     const uploadData = await uploadRes.json();
-    if (!uploadData.url) throw new Error('Upload échoué: ' + JSON.stringify(uploadData));
 
-    const convertRes = await fetch('https://api.pdf.co/v1/pdf/convert/from/html', {
-      method: 'POST',
-      headers: { 'x-api-key': apiKey, 'Content-Type': 'application/json' },
-      body: JSON.stringify({
+    let convertBody;
+    if (uploadData.url) {
+      // Upload réussi → utilise l'URL
+      console.log(`Upload OK: ${uploadData.url}`);
+      convertBody = {
         url: uploadData.url,
         paperSize: 'A4',
         orientation: 'Portrait',
         printBackground: true,
         margins: '10mm 12mm 10mm 12mm',
         async: false,
-      }),
+      };
+    } else {
+      // Upload échoué → envoie le HTML directement (limite 1MB)
+      console.log('Upload échoué, envoi HTML direct');
+      const htmlTrunc = htmlContent.substring(0, 900000); // Max ~900KB
+      convertBody = {
+        html: htmlTrunc,
+        paperSize: 'A4',
+        orientation: 'Portrait',
+        printBackground: true,
+        margins: '10mm 12mm 10mm 12mm',
+        async: false,
+      };
+    }
+
+    const convertRes = await fetch('https://api.pdf.co/v1/pdf/convert/from/html', {
+      method: 'POST',
+      headers: { 'x-api-key': apiKey, 'Content-Type': 'application/json' },
+      body: JSON.stringify(convertBody),
     });
     const convertData = await convertRes.json();
     if (!convertData.url) throw new Error('Conversion échouée: ' + JSON.stringify(convertData));
