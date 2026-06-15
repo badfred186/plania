@@ -20,54 +20,69 @@ async function getRawBody(req) {
 async function htmlToPDF(htmlContent, filename) {
   try {
     const apiKey = process.env.PDFCO_API_KEY;
+    console.log(`PDF.co conversion démarrée: ${filename} (${htmlContent.length} chars)`);
 
-    // Étape 1 : Upload le fichier HTML
-    const uploadRes = await fetch('https://api.pdf.co/v1/file/upload/base64', {
+    // Méthode 1 : Upload base64 puis conversion
+    try {
+      const b64 = Buffer.from(htmlContent, 'utf8').toString('base64');
+      const uploadRes = await fetch('https://api.pdf.co/v1/file/upload/base64', {
+        method: 'POST',
+        headers: { 'x-api-key': apiKey, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: filename + '.html', file: b64 }),
+      });
+      const uploadData = await uploadRes.json();
+      if (uploadData.url && !uploadData.error) {
+        console.log(`Upload OK → ${uploadData.url}`);
+        const convertRes = await fetch('https://api.pdf.co/v1/pdf/convert/from/html', {
+          method: 'POST',
+          headers: { 'x-api-key': apiKey, 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            url: uploadData.url,
+            paperSize: 'A4',
+            orientation: 'Portrait',
+            printBackground: true,
+            margins: '10mm 12mm 10mm 12mm',
+            async: false,
+          }),
+        });
+        const convertData = await convertRes.json();
+        if (convertData.url && !convertData.error) {
+          const pdfRes = await fetch(convertData.url);
+          const pdfBuf = await pdfRes.arrayBuffer();
+          console.log(`PDF généré via upload: ${pdfBuf.byteLength} bytes`);
+          return Buffer.from(pdfBuf);
+        }
+        console.log('Conversion via URL échouée:', JSON.stringify(convertData));
+      } else {
+        console.log('Upload échoué:', JSON.stringify(uploadData));
+      }
+    } catch (e) {
+      console.log('Méthode upload échouée:', e.message);
+    }
+
+    // Méthode 2 : Envoi HTML direct
+    console.log('Tentative envoi HTML direct...');
+    const convertRes2 = await fetch('https://api.pdf.co/v1/pdf/convert/from/html', {
       method: 'POST',
       headers: { 'x-api-key': apiKey, 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name: filename + '.html',
-        file: Buffer.from(htmlContent).toString('base64'),
+        html: htmlContent,
+        paperSize: 'A4',
+        orientation: 'Portrait',
+        printBackground: true,
+        margins: '10mm 12mm 10mm 12mm',
+        async: false,
       }),
     });
-    const uploadData = await uploadRes.json();
-
-    let convertBody;
-    if (uploadData.url) {
-      // Upload réussi → utilise l'URL
-      console.log(`Upload OK: ${uploadData.url}`);
-      convertBody = {
-        url: uploadData.url,
-        paperSize: 'A4',
-        orientation: 'Portrait',
-        printBackground: true,
-        margins: '10mm 12mm 10mm 12mm',
-        async: false,
-      };
-    } else {
-      // Upload échoué → envoie le HTML directement (limite 1MB)
-      console.log('Upload échoué, envoi HTML direct');
-      const htmlTrunc = htmlContent.substring(0, 900000); // Max ~900KB
-      convertBody = {
-        html: htmlTrunc,
-        paperSize: 'A4',
-        orientation: 'Portrait',
-        printBackground: true,
-        margins: '10mm 12mm 10mm 12mm',
-        async: false,
-      };
+    const convertData2 = await convertRes2.json();
+    if (!convertData2.url || convertData2.error) {
+      throw new Error('PDF direct échoué: ' + JSON.stringify(convertData2));
     }
-
-    const convertRes = await fetch('https://api.pdf.co/v1/pdf/convert/from/html', {
-      method: 'POST',
-      headers: { 'x-api-key': apiKey, 'Content-Type': 'application/json' },
-      body: JSON.stringify(convertBody),
-    });
-    const convertData = await convertRes.json();
-    if (!convertData.url) throw new Error('Conversion échouée: ' + JSON.stringify(convertData));
-
-    const pdfRes = await fetch(convertData.url);
-    const pdfBuf = await pdfRes.arrayBuffer();
+    const pdfRes2 = await fetch(convertData2.url);
+    const pdfBuf2 = await pdfRes2.arrayBuffer();
+    console.log(`PDF généré via HTML direct: ${pdfBuf2.byteLength} bytes`);
+    const pdfBuf = pdfBuf2;
+    return Buffer.from(pdfBuf);
     return Buffer.from(pdfBuf);
   } catch (err) {
     console.error(`PDF.co error (${filename}):`, err.message);
