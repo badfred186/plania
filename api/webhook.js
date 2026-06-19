@@ -440,9 +440,19 @@ DONNEES :
       const textMarche = resMarche.content[0]?.text || '';
 
       function parseS(text, key) {
-        const re = new RegExp(`\\[S:${key}\\]([\\s\\S]*?)\\[\\/S\\]`);
-        const m = text.match(re);
-        return m ? m[1].trim() : '';
+        // Format 1: [S:KEY]...[/S]
+        let re = new RegExp('[[]S:' + key + '[]]([\s\S]*?)[[][/]S[]]');
+        let m = text.match(re);
+        if (m && m[1].trim().length > 20) return m[1].trim();
+        // Format 2: [SECTION:KEY]...[/SECTION]
+        re = new RegExp('[[]SECTION:' + key + '[]]([\s\S]*?)[[][/]SECTION[]]');
+        m = text.match(re);
+        if (m && m[1].trim().length > 20) return m[1].trim();
+        // Format 3: apres le marqueur jusqu au suivant
+        re = new RegExp('[[]S:' + key + '[]]([\s\S]*?)(?=[[][/]S|[[][S:|$)');
+        m = text.match(re);
+        if (m && m[1].trim().length > 20) return m[1].trim();
+        return '';
       }
 
       const sectionsProjet = { resume: parseS(textProjet,'RESUME'), fondateur: parseS(textProjet,'FONDATEUR'), histoire: parseS(textProjet,'HISTOIRE'), produits: parseS(textProjet,'PRODUITS'), valeur: parseS(textProjet,'VALEUR'), modele: parseS(textProjet,'MODELE'), organisation: parseS(textProjet,'ORGANISATION'), objectifs: parseS(textProjet,'OBJECTIFS'), developpement: parseS(textProjet,'DEVELOPPEMENT'), conclusion: parseS(textProjet,'CONCLUSION') };
