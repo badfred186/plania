@@ -440,19 +440,27 @@ DONNEES :
       const textMarche = resMarche.content[0]?.text || '';
 
       function parseS(text, key) {
-        // Format 1: [S:KEY]...[/S]
-        let re = new RegExp('[[]S:' + key + '[]]([\s\S]*?)[[][/]S[]]');
-        let m = text.match(re);
-        if (m && m[1].trim().length > 20) return m[1].trim();
-        // Format 2: [SECTION:KEY]...[/SECTION]
-        re = new RegExp('[[]SECTION:' + key + '[]]([\s\S]*?)[[][/]SECTION[]]');
-        m = text.match(re);
-        if (m && m[1].trim().length > 20) return m[1].trim();
-        // Format 3: apres le marqueur jusqu au suivant
-        re = new RegExp('[[]S:' + key + '[]]([\s\S]*?)(?=[[][/]S|[[][S:|$)');
-        m = text.match(re);
-        if (m && m[1].trim().length > 20) return m[1].trim();
-        return '';
+        var startTag = '[S:' + key + ']';
+        var endTag = '[/S]';
+        var startIdx = text.indexOf(startTag);
+        if (startIdx === -1) {
+          var startTag2 = '[SECTION:' + key + ']';
+          var endTag2 = '[/SECTION]';
+          startIdx = text.indexOf(startTag2);
+          if (startIdx === -1) return '';
+          var contentStart = startIdx + startTag2.length;
+          var endIdx = text.indexOf(endTag2, contentStart);
+          if (endIdx === -1) return text.substring(contentStart).trim();
+          return text.substring(contentStart, endIdx).trim();
+        }
+        var contentStart = startIdx + startTag.length;
+        var endIdx = text.indexOf(endTag, contentStart);
+        if (endIdx === -1) {
+          var nextTagIdx = text.indexOf('[S:', contentStart);
+          if (nextTagIdx === -1) return text.substring(contentStart).trim();
+          return text.substring(contentStart, nextTagIdx).trim();
+        }
+        return text.substring(contentStart, endIdx).trim();
       }
 
       const sectionsProjet = { resume: parseS(textProjet,'RESUME'), fondateur: parseS(textProjet,'FONDATEUR'), histoire: parseS(textProjet,'HISTOIRE'), produits: parseS(textProjet,'PRODUITS'), valeur: parseS(textProjet,'VALEUR'), modele: parseS(textProjet,'MODELE'), organisation: parseS(textProjet,'ORGANISATION'), objectifs: parseS(textProjet,'OBJECTIFS'), developpement: parseS(textProjet,'DEVELOPPEMENT'), conclusion: parseS(textProjet,'CONCLUSION') };
