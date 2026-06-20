@@ -431,13 +431,42 @@ DONNEES :
 [S:COMMERCIALE](Strategie commerciale min 150 mots)[/S]
 [S:CROISSANCE](Perspectives de croissance min 120 mots)[/S]`;
 
-      const [resProjet, resMarche] = await Promise.all([
+      // Prompt additionnel : Business Plan Standard (identique a l'offre Simple)
+      // ajoute aux livrables Premium sans rien modifier d'autre
+      const promptStandard = `Tu es un expert en creation d'entreprise. Redige un business plan professionnel pour des ${destLabels[dest] || 'partenaires financiers'}. NE JAMAIS mentionner l'intelligence artificielle.
+
+DONNEES :
+- Porteur : ${formData.prenom} ${formData.nom}
+- Projet : ${formData.nomProjet}
+- Secteur : ${formData.secteur}, Juridique : ${formData.juridique}, Ville : ${formData.ville}
+- Lancement : ${formData.lancement || 'Non precise'}
+- Description : ${formData.description}
+- Parcours : ${formData.parcours}
+- Clients : ${formData.clients}
+- Concurrents : ${formData.concurrents}
+- Avantage : ${formData.avantage}
+- Strategie : ${formData.strategie || 'Non renseignee'}
+- Risques : ${formData.risques || 'Non renseignes'}
+- CA An1/2/3 : ${fmt(fin.ca1)} / ${fmt(fin.ca2)} / ${fmt(fin.ca3)}
+- Resultat net An1 : ${fmt(fin.rn1)}, Seuil : ${fmt(fin.sr1)}
+- Investissement : ${fmt(fin.totalInvest)}, Financement : ${fmt(fin.apport)} + ${fmt(fin.capital)}
+
+[SECTION:RESUME](Resume executif min 200 mots)[/SECTION]
+[SECTION:PORTEUR](Portrait porteur min 150 mots)[/SECTION]
+[SECTION:PROJET](Description projet min 200 mots)[/SECTION]
+[SECTION:MARCHE](Etude de marche min 200 mots)[/SECTION]
+[SECTION:STRATEGIE](Strategie commerciale min 180 mots)[/SECTION]
+[SECTION:RISQUES](5 risques : RISQUE: nom | NIVEAU: Faible ou Modere ou Eleve | MESURE: mesure)[/SECTION]`;
+
+      const [resProjet, resMarche, resStandard] = await Promise.all([
         anthropic.messages.create({ model: 'claude-sonnet-4-5', max_tokens: 4000, messages: [{ role: 'user', content: promptProjet }] }),
         anthropic.messages.create({ model: 'claude-sonnet-4-5', max_tokens: 4000, messages: [{ role: 'user', content: promptMarche }] }),
+        anthropic.messages.create({ model: 'claude-sonnet-4-5', max_tokens: 4000, messages: [{ role: 'user', content: promptStandard }] }),
       ]);
 
       const textProjet = resProjet.content[0]?.text || '';
       const textMarche = resMarche.content[0]?.text || '';
+      const textStandard = resStandard.content[0]?.text || '';
 
       function parseS(text, key) {
         var startTag = '[S:' + key + ']';
@@ -466,17 +495,40 @@ DONNEES :
       const sectionsProjet = { resume: parseS(textProjet,'RESUME'), fondateur: parseS(textProjet,'FONDATEUR'), histoire: parseS(textProjet,'HISTOIRE'), produits: parseS(textProjet,'PRODUITS'), valeur: parseS(textProjet,'VALEUR'), modele: parseS(textProjet,'MODELE'), organisation: parseS(textProjet,'ORGANISATION'), objectifs: parseS(textProjet,'OBJECTIFS'), developpement: parseS(textProjet,'DEVELOPPEMENT'), conclusion: parseS(textProjet,'CONCLUSION') };
       const sectionsMarche = { marche: parseS(textMarche,'MARCHE'), tendances: parseS(textMarche,'TENDANCES'), concurrence: parseS(textMarche,'CONCURRENCE'), cibles: parseS(textMarche,'CIBLES'), positionnement: parseS(textMarche,'POSITIONNEMENT'), avantages: parseS(textMarche,'AVANTAGES'), swot: parseS(textMarche,'SWOT'), marketing: parseS(textMarche,'MARKETING'), commerciale: parseS(textMarche,'COMMERCIALE'), croissance: parseS(textMarche,'CROISSANCE') };
 
+      // Parsing du business plan standard (format [SECTION:KEY]...[/SECTION])
+      function parseSectionStd(text, key) {
+        const startTag = `[SECTION:${key}]`;
+        const endTag = '[/SECTION]';
+        const startIdx = text.indexOf(startTag);
+        if (startIdx === -1) return '';
+        const contentStart = startIdx + startTag.length;
+        const endIdx = text.indexOf(endTag, contentStart);
+        if (endIdx === -1) return text.substring(contentStart).trim();
+        return text.substring(contentStart, endIdx).trim();
+      }
+      const aiSectionsStandard = {
+        resume: parseSectionStd(textStandard, 'RESUME'),
+        porteur: parseSectionStd(textStandard, 'PORTEUR'),
+        projet: parseSectionStd(textStandard, 'PROJET'),
+        marche: parseSectionStd(textStandard, 'MARCHE'),
+        strategie: parseSectionStd(textStandard, 'STRATEGIE'),
+        risques: parseSectionStd(textStandard, 'RISQUES'),
+      };
+
       const htmlProjet = generateProjetHTML(formData, fin, sectionsProjet);
       const htmlMarche = generateMarcheHTML(formData, fin, sectionsMarche);
+      const htmlStandard = generateBusinessPlanHTML(formData, fin, aiSectionsStandard);
 
-      console.log('Génération Excel + 2 PDF en parallèle...');
-      const [pdfProjet, pdfMarche, excelBase64] = await Promise.all([
+      console.log('Génération Excel + 3 PDF en parallèle (dont Business Plan Standard)...');
+      const [pdfProjet, pdfMarche, pdfStandard, excelBase64] = await Promise.all([
         htmlToPDF(htmlProjet, `Presentation_${nomFichier}`),
         htmlToPDF(htmlMarche, `Marche_${nomFichier}`),
+        htmlToPDF(htmlStandard, `BusinessPlan_${nomFichier}`),
         generateExcelBase64(formData, fin),
       ]);
 
       const attachments = [];
+      if (pdfStandard?.length > 1000) { attachments.push({ filename: `BusinessPlan_${nomFichier}.pdf`, content: pdfStandard.toString('base64') }); console.log('PDF Business Plan Standard ✓'); }
       if (excelBase64) { attachments.push({ filename: `Financier_${nomFichier}.xlsx`, content: excelBase64 }); console.log('Excel complet ✓'); }
       if (pdfProjet?.length > 1000) { attachments.push({ filename: `Presentation_${nomFichier}.pdf`, content: pdfProjet.toString('base64') }); console.log('PDF Présentation ✓'); }
       if (pdfMarche?.length > 1000) { attachments.push({ filename: `Marche_Strategie_${nomFichier}.pdf`, content: pdfMarche.toString('base64') }); console.log('PDF Marché ✓'); }
@@ -494,6 +546,7 @@ DONNEES :
             <p style="font-size:15px;margin:0 0 14px;">Bonjour ${formData.prenom},</p>
             <p style="color:#555;margin:0 0 20px;font-size:14px;line-height:1.7;">Vos <strong>3 livrables professionnels</strong> sont en pieces jointes :</p>
             <div style="background:#FFF8EC;border:1px solid #E8D5A3;border-radius:8px;padding:18px;margin:0 0 20px;">
+              <p style="margin:4px 0;font-size:13px;">📄 <strong>BusinessPlan_${nomFichier}.pdf</strong> — Business plan complet (8 sections)</p>
               <p style="margin:4px 0;font-size:13px;">📊 <strong>Financier_${nomFichier}.xlsx</strong> — Modele Excel financier complet (4 feuilles)</p>
               <p style="margin:4px 0;font-size:13px;">📄 <strong>Presentation_${nomFichier}.pdf</strong> — Presentation du projet (10 sections)</p>
               <p style="margin:4px 0;font-size:13px;">📈 <strong>Marche_Strategie_${nomFichier}.pdf</strong> — Etude de marche et strategie</p>
@@ -612,4 +665,4 @@ DONNEES :
     console.error('Erreur webhook:', err);
     return res.status(200).json({ received: true, error: err.message });
   }
-};
+};     
