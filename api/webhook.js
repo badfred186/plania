@@ -346,13 +346,17 @@ module.exports = async function handler(req, res) {
   const meta = session.metadata || {};
 
   // ── RÉPONDRE IMMÉDIATEMENT À STRIPE (évite le timeout 30s) ──────
-  // Le traitement lourd (IA + PDF) se fait en arrière-plan
-  res.status(200).json({ received: true });
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://plania-one.vercel.app';
 
-  // Traitement asynchrone en arrière-plan
-  processPayment(session, meta).catch(err => {
-    console.error('Erreur traitement arrière-plan:', err);
-  });
+  // Déclencher le traitement via un appel HTTP vers /api/process
+  // (fire-and-forget : on n'attend pas la réponse)
+  fetch(`${siteUrl}/api/process`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-internal-key': process.env.STRIPE_WEBHOOK_SECRET || '' },
+    body: JSON.stringify({ session, meta }),
+  }).catch(err => console.error('Erreur déclenchement process:', err));
+
+  return res.status(200).json({ received: true });
 }
 
 // ── TRAITEMENT ASYNCHRONE (IA + PDF + EMAIL) ─────────────────────────
