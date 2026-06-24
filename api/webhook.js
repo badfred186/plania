@@ -345,6 +345,18 @@ module.exports = async function handler(req, res) {
   const session = event.data.object;
   const meta = session.metadata || {};
 
+  // ── RÉPONDRE IMMÉDIATEMENT À STRIPE (évite le timeout 30s) ──────
+  // Le traitement lourd (IA + PDF) se fait en arrière-plan
+  res.status(200).json({ received: true });
+
+  // Traitement asynchrone en arrière-plan
+  processPayment(session, meta).catch(err => {
+    console.error('Erreur traitement arrière-plan:', err);
+  });
+}
+
+// ── TRAITEMENT ASYNCHRONE (IA + PDF + EMAIL) ─────────────────────────
+async function processPayment(session, meta) {
   try {
     const dataStr = (meta.data1||'')+(meta.data2||'')+(meta.data3||'')+(meta.data4||'')+(meta.data5||'');
     let formData = {};
@@ -659,10 +671,9 @@ DONNEES :
       });
     }
 
-    return res.status(200).json({ success: true, offre: formData.offre });
+    console.log('Traitement arrière-plan terminé avec succès');
 
   } catch (err) {
-    console.error('Erreur webhook:', err);
-    return res.status(200).json({ received: true, error: err.message });
+    console.error('Erreur traitement arrière-plan:', err);
   }
-};     
+}
